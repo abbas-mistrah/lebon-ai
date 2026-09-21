@@ -1,0 +1,12 @@
+{
+  "name": "LeBon AI",
+  "short_name": "LeBon AI",
+  "description": "Votre assistant IA leboncoin — local et privé",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f0e6",
+  "theme_color": "#ff6e2c",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

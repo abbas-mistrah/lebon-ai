@@ -1,0 +1,314 @@
+{
+  "activeId": "ws-transfo-ia",
+  "workspaces": [
+    {
+      "id": "ws-transfo-ia",
+      "name": "leboncoin - Transfo IA 360",
+      "tag": "Principal ★",
+      "color": "#ff6b00",
+      "description": "Accélération IA générative, adoption équipes produit & tech, KPIs IBC et standard F3.",
+      "createdAt": "2026-08-01",
+      "context": "# Directives de l'Espace Transfo IA 360\n- Objectif 2026 : Atteindre 75% de Tech WAU et 2 000h mensuelles économisées.\n- Standard F3 obligatoire pour toute restitution au COMEX : 5s vision, 30s compréhension, 2 clics action.\n- Exécution exclusivement locale avec Ollama ; profil LeBon Auto Local recommandé.",
+      "members": [
+        {
+          "id": "m-1",
+          "name": "Abbas Mistrah",
+          "role": "Lead IA & Transfo 360",
+          "email": "abbas.mistrah.ext@leboncoin.fr",
+          "status": "online",
+          "avatar": "AM",
+          "isLead": true
+        },
+        {
+          "id": "m-2",
+          "name": "Sarah Da Silva",
+          "role": "Product Strategy Lead",
+          "email": "sarah.d@leboncoin.fr",
+          "status": "online",
+          "avatar": "SD",
+          "isLead": false
+        },
+        {
+          "id": "m-3",
+          "name": "Thomas Bernard",
+          "role": "Staff Software Engineer",
+          "email": "thomas.b@leboncoin.fr",
+          "status": "busy",
+          "avatar": "TB",
+          "isLead": false
+        },
+        {
+          "id": "m-4",
+          "name": "Julie Lefebvre",
+          "role": "Data Architect & BigQuery",
+          "email": "julie.l@leboncoin.fr",
+          "status": "generating",
+          "avatar": "JL",
+          "isLead": false
+        }
+      ],
+      "agents": [
+        {
+          "id": "agent-coder",
+          "name": "LeBon Coder",
+          "role": "Architecture & Code Sandbox",
+          "icon": "⚡",
+          "model": "qwen2.5:3b",
+          "status": "active",
+          "desc": "Génération de composants web, refactoring Clean Code et scripts locaux."
+        },
+        {
+          "id": "agent-data",
+          "name": "BigQuery Analyst",
+          "role": "Data Pipelines & SQL",
+          "icon": "📊",
+          "model": "qwen2.5:3b",
+          "status": "active",
+          "desc": "Analyses de données volumineuses, requêtes BigQuery et modélisation."
+        },
+        {
+          "id": "agent-roi",
+          "name": "Calculateur ROI",
+          "role": "Modélisation Financière",
+          "icon": "💡",
+          "model": "qwen2.5:3b",
+          "status": "active",
+          "desc": "Chiffrage des gains financiers, heures économisées et payback."
+        },
+        {
+          "id": "agent-comex",
+          "name": "COMEX Synthesizer",
+          "role": "Notes Exécutives F3",
+          "icon": "📑",
+          "model": "qwen2.5:3b",
+          "status": "active",
+          "desc": "Notes de synthèse stratégiques 5 points pour le comité de direction."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t-101",
+          "title": "Calculer les projections ROI 2026 pour 500 collaborateurs",
+          "status": "done",
+          "priority": "high",
+          "assigneeType": "agent",
+          "assigneeId": "agent-roi",
+          "assigneeName": "Calculateur ROI",
+          "output": "Projection validée : 182 500 € / an d'économies nettes et 414h libérées par mois (payback 1.8 mois).",
+          "date": "Aujourd'hui"
+        },
+        {
+          "id": "t-102",
+          "title": "Générer le script d'analyse statique des repositories tech",
+          "status": "done",
+          "priority": "medium",
+          "assigneeType": "agent",
+          "assigneeId": "agent-coder",
+          "assigneeName": "LeBon Coder",
+          "output": "Script scan_leboncoin_project.py généré avec audit OWASP et métriques de complexité cyclomatique.",
+          "date": "Aujourd'hui"
+        },
+        {
+          "id": "t-103",
+          "title": "Préparer la note stratégique F3 pour le COMEX de rentrée",
+          "status": "in_progress",
+          "priority": "urgent",
+          "assigneeType": "agent",
+          "assigneeId": "agent-comex",
+          "assigneeName": "COMEX Synthesizer",
+          "output": "Synthèse 5 points clés et KPIs certifiés en cours de finalisation.",
+          "date": "Aujourd'hui"
+        },
+        {
+          "id": "t-104",
+          "title": "Audit de sécurité et indexation vectorielle hybride RAG",
+          "status": "done",
+          "priority": "medium",
+          "assigneeType": "agent",
+          "assigneeId": "agent-coder",
+          "assigneeName": "LeBon Coder",
+          "output": "🤖 [Livrable Agent Autonome]\nAnalyse et résolution complétée pour la tâche \"Audit de sécurité et indexation vectorielle hybride RAG\".\nLivrable certifié conforme aux standards de qualité leboncoin & Adevinta.",
+          "date": "À venir"
+        }
+      ],
+      "messages": [
+        {
+          "id": "msg-1",
+          "sender": "Abbas Mistrah",
+          "avatar": "AM",
+          "isAgent": false,
+          "time": "10:15",
+          "text": "Bienvenue dans le workspace Transfo IA 360 ! Les agents autonomes LeBon Coder et Calculateur ROI sont actifs."
+        },
+        {
+          "id": "msg-2",
+          "sender": "Sarah Da Silva",
+          "avatar": "SD",
+          "isAgent": false,
+          "time": "10:22",
+          "text": "J'ai assigné la préparation de la note COMEX au COMEX Synthesizer."
+        },
+        {
+          "id": "msg-3",
+          "sender": "COMEX Synthesizer",
+          "avatar": "📑",
+          "isAgent": true,
+          "time": "10:24",
+          "text": "🤖 Tâche prise en compte : note F3 en cours de rédaction avec métriques d'adoption 62.5%."
+        },
+        {
+          "id": "msg-1787261520433",
+          "sender": "LeBon Coder (Agent Autonome)",
+          "avatar": "⚡",
+          "isAgent": true,
+          "time": "23:32",
+          "text": "✅ Tâche résolue avec succès : \"Audit de sécurité et indexation vectorielle hybride RAG\". Livrable disponible dans le tableau de bord."
+        }
+      ]
+    },
+    {
+      "id": "ws-adevinta",
+      "name": "Adevinta - Marketplace Tech Hub",
+      "tag": "Groupe",
+      "color": "#002F6C",
+      "description": "Synergies technologiques européennes, composants partagés et passerelles MoE.",
+      "createdAt": "2026-08-05",
+      "context": "# Directives Adevinta Tech Hub\n- Alignement architectural sur les briques partagées (design system, gateways MoE).\n- Déploiement multi-places de marché (leboncoin, Kleinanzeigen, Subito, Fotocasa).",
+      "members": [
+        {
+          "id": "m-1",
+          "name": "Abbas Mistrah",
+          "role": "AI Consultant",
+          "email": "abbas.mistrah.ext@leboncoin.fr",
+          "status": "online",
+          "avatar": "AM",
+          "isLead": true
+        },
+        {
+          "id": "m-5",
+          "name": "Lars Lindqvist",
+          "role": "Staff Platform Architect",
+          "email": "lars.l@adevinta.com",
+          "status": "online",
+          "avatar": "LL",
+          "isLead": false
+        },
+        {
+          "id": "m-6",
+          "name": "Elena Gomez",
+          "role": "Lead ML Engineer",
+          "email": "elena.g@adevinta.com",
+          "status": "busy",
+          "avatar": "EG",
+          "isLead": false
+        }
+      ],
+      "agents": [
+        {
+          "id": "agent-coder",
+          "name": "LeBon Coder",
+          "role": "Code Sandbox",
+          "icon": "⚡",
+          "model": "qwen2.5:3b",
+          "status": "active",
+          "desc": "Développement Clean Code."
+        },
+        {
+          "id": "agent-data",
+          "name": "BigQuery Analyst",
+          "role": "Data SQL",
+          "icon": "📊",
+          "model": "qwen2.5:3b",
+          "status": "active",
+          "desc": "Pipelines & données."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t-201",
+          "title": "Harmoniser le catalogue de modèles souverains Ollama pour Adevinta",
+          "status": "in_progress",
+          "priority": "high",
+          "assigneeType": "human",
+          "assigneeId": "m-5",
+          "assigneeName": "Lars Lindqvist",
+          "output": "",
+          "date": "Aujourd'hui"
+        }
+      ],
+      "messages": [
+        {
+          "id": "msg-21",
+          "sender": "Lars Lindqvist",
+          "avatar": "LL",
+          "isAgent": false,
+          "time": "09:40",
+          "text": "Alignement sur les modèles 0.6B et 4B validé pour le déploiement groupe."
+        }
+      ]
+    },
+    {
+      "id": "ws-data-core",
+      "name": "Data & Analytics Core Platform",
+      "tag": "Data",
+      "color": "#10a37f",
+      "description": "Pipelines BigQuery, modélisation Dataform et métriques business leboncoin.",
+      "createdAt": "2026-08-10",
+      "context": "# Directives Data & Analytics\n- Toutes les requêtes massives doivent être partitionnées et clusterisées.\n- Coûts BigQuery sous contrôle strict avec monitoring automatisé.",
+      "members": [
+        {
+          "id": "m-1",
+          "name": "Abbas Mistrah",
+          "role": "Lead IA",
+          "email": "abbas.mistrah.ext@leboncoin.fr",
+          "status": "online",
+          "avatar": "AM",
+          "isLead": true
+        },
+        {
+          "id": "m-4",
+          "name": "Julie Lefebvre",
+          "role": "Data Architect",
+          "email": "julie.l@leboncoin.fr",
+          "status": "online",
+          "avatar": "JL",
+          "isLead": false
+        }
+      ],
+      "agents": [
+        {
+          "id": "agent-data",
+          "name": "BigQuery Analyst",
+          "role": "Data Pipelines & SQL",
+          "icon": "📊",
+          "model": "qwen2.5:3b",
+          "status": "active",
+          "desc": "Analyses SQL & Dataform."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t-301",
+          "title": "Optimiser la vue analytique quotidienne des transactions sécurisées",
+          "status": "done",
+          "priority": "high",
+          "assigneeType": "agent",
+          "assigneeId": "agent-data",
+          "assigneeName": "BigQuery Analyst",
+          "output": "Requête partitionnée par date optimisée (-45% de bytes scannés).",
+          "date": "Aujourd'hui"
+        }
+      ],
+      "messages": [
+        {
+          "id": "msg-31",
+          "sender": "Julie Lefebvre",
+          "avatar": "JL",
+          "isAgent": false,
+          "time": "11:00",
+          "text": "La vue partitionnée a été déployée avec succès."
+        }
+      ]
+    }
+  ]
+}

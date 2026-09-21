@@ -1,0 +1,38 @@
+[
+  {
+    "id": "doc-1",
+    "type": "doc",
+    "title": "Charte Gouvernance IA Souveraine leboncoin",
+    "desc": "Principes de sécurité des données, classification RGPD et politique d'inférence 100% locale.",
+    "date": "2026-08-15",
+    "size": "42 Ko",
+    "tag": "Gouvernance"
+  },
+  {
+    "id": "doc-2",
+    "type": "doc",
+    "title": "Standard F3 · Fiche Cadrage Use Case IA",
+    "desc": "Modèle officiel de cadrage stratégique pour les projets IA validés en comité d'arbitrage.",
+    "date": "2026-08-16",
+    "size": "18 Ko",
+    "tag": "Standard F3"
+  },
+  {
+    "id": "prompt-1",
+    "type": "prompt",
+    "title": "Refactoring Clean Code & Tests Unitaires",
+    "desc": "Prompt structuré pour réécrire une fonction avec typage, gestion d'erreurs et suite de tests.",
+    "date": "2026-08-17",
+    "tag": "Engineering",
+    "content": "Analyse le code suivant, applique les principes SOLID, isole les fonctions pures et génère la suite de tests unitaires complète avec cas limites :"
+  },
+  {
+    "id": "prompt-2",
+    "type": "prompt",
+    "title": "Simulation ROI & Rentabilité Use Case",
+    "desc": "Prompt pour chiffrer précisément les économies en heures et euros d'un projet IA.",
+    "date": "2026-08-17",
+    "tag": "Finance",
+    "content": "Calcule le modèle financier complet pour ce use case IA (population, temps gagné par semaine, coût licence, payback et ROI net sur 3 ans) :"
+  }
+]

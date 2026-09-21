@@ -1,0 +1,12 @@
+node_modules/
+config.json
+gouvernance.json
+conversations.json
+server.log
+*.log
+ollama.exe
+icon-192.png
+icon-512.png
+
+.env
+.env.*

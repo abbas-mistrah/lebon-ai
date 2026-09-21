@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#ff6b00">
+<title>LeBon AI — Workspace IA Local &amp; Souverain leboncoin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="preload" href="/style.css" as="style">
+<link rel="preload" href="/app.js" as="script">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+<link rel="stylesheet" href="/style.css?v=30">
+</head>
+<body>
+
+<!-- TICKER BOUSSOLE : architecture d'origine conservée -->
+<header class="ticker" id="tickerBar">
+  <div class="ticker-pulse" onclick="openGovModal()" title="Architecture IA Souveraine & Données Locales">
+    <span class="pulse-dot"></span>
+    <span class="ticker-pulse-label">LIVE · <span class="brand-lebon">LeBon</span> <span class="brand-ai">AI</span> · LOCAL</span>
+  </div>
+
+  <div class="kpi-chip" id="topOllamaChip" onclick="openGovModal()" title="Statut du moteur Ollama local (127.0.0.1:11434)" style="cursor:pointer">
+    <span class="chip-dot" id="topOllamaDot"></span>
+    <span class="chip-label">Ollama :</span>
+    <b id="topOllamaStatus" style="font-weight:800">…</b>
+  </div>
+
+  <div class="kpi-chip orange" id="topVoiceChip" onclick="openLiveVoiceModal()" title="Lancer le Live Voice AI Partner local" style="cursor:pointer;background:rgba(255,107,0,0.12);border-color:#ff6b00">
+    <span class="chip-dot orange"></span>
+    <span class="chip-label" style="color:#ea580c;font-weight:800">🎙️ Live Voice</span>
+  </div>
+
+  <div class="kpi-chip blue" id="topHoursChip" onclick="openRoiModal()" title="Heures économisées dans le scénario ROI actif">
+    <span class="chip-dot blue"></span>
+    <span class="chip-label">Heures gagnées :</span>
+    <b id="topHoursVal">+414 h</b>
+    <div class="mini-progress-track">
+      <div class="mini-progress-fill blue" id="topHoursBar" style="width: 83%"></div>
+    </div>
+    <span class="mini-progress-pct mono" id="topHoursPct">83%</span>
+  </div>
+
+  <div class="kpi-chip orange highlight-center" id="topRoiChip" onclick="openRoiModal()" title="Scénario du simulateur ROI Transfo IA">
+    <span class="chip-dot orange"></span>
+    <span class="chip-label">Mon ROI IA :</span>
+    <b id="topRoiVal">+17 550 €</b>
+    <div class="mini-progress-track">
+      <div class="mini-progress-fill orange" id="topRoiBar" style="width: 88%"></div>
+    </div>
+    <span class="mini-progress-pct mono" id="topRoiPct">88%</span>
+  </div>
+
+  <div class="kpi-chip green" id="topTelemetryChip" onclick="openGovModal()" title="Statut matériel & souveraineté">
+    <span class="chip-dot green"></span>
+    <span class="chip-label">RAM :</span>
+    <b id="topTelemetryText">— / — Go</b>
+    <div class="mini-progress-track">
+      <div class="mini-progress-fill green" id="topTelemetryBar" style="width: 0%"></div>
+    </div>
+    <span class="mini-progress-pct mono" id="topTelemetryPct">—%</span>
+  </div>
+
+  <div class="kpi-chip clock-chip" id="topClockChip" title="Date et Heure en temps réel">
+    <span class="chip-dot neutral"></span>
+    <span class="chip-label" id="liveDate"></span>
+    <b class="mono" id="liveClock">--:--:--</b>
+  </div>
+
+  <div class="kpi-chip lang-chip" id="topLangChip" title="Changer la langue de l'application">
+    <span class="chip-dot" style="background:#ff6b00"></span>
+    <select id="appLangSelect" onchange="changeAppLanguage(this.value)" class="ticker-lang-select" title="Langue de l'application (Français, Anglais, Allemand)">
+      <option value="fr" selected>🇫🇷 FR</option>
+      <option value="en">🇬🇧 EN</option>
+      <option value="de">🇩🇪 DE</option>
+    </select>
+  </div>
+
+  <div class="kpi-chip cert-chip" id="topCertChip" onclick="openCertModal()" title="Compétences & Certifications IA leboncoin · Adevinta" style="cursor:pointer;background:rgba(255,107,0,0.1);border-color:rgba(255,107,0,0.3)">
+    <span class="chip-dot" style="background:#ff6b00"></span>
+    <span class="chip-label" id="topCertLabel">🎓 Certifications :</span>
+    <b class="mono" id="topCertLevel" style="color:var(--orange)">Niveau 3 · Expert IA</b>
+  </div>
+
+</header>
+
+<!-- MAIN APPLICATION SHELL (CHATGPT / CLAUDE / KIMI ARCHITECTURE) -->
+<div class="app-shell" id="appShell">
+
+  <!-- SIDEBAR EXACT BOUSSOLE -->
+  <aside class="sidebar side" id="sidebar">
+    <div class="brand">
+      <div class="wordmark"><span class="brand-lebon">LeBon</span> <span class="brand-ai">AI</span></div>
+      <div class="brand-actions">
+        <button class="sidebar-action-btn" onclick="openSearchModal()" title="Rechercher une discussion (⌘K)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button class="sidebar-action-btn" id="sidebarCollapseBtn" title="Réduire la barre latérale">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- NAVIGATION EXACTEMENT COMME SUR L'IMAGE FOURNIE -->
+    <nav class="nav">
+      <button class="nav-item active" id="navNewChatBtn" onclick="newChat()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+        <span class="nav-label">Nouveau chat</span>
+      </button>
+
+      <button class="nav-item" id="navPlanBtn" onclick="openPlanModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span class="nav-label">Planification</span>
+      </button>
+
+      <button class="nav-item" id="navLibraryBtn" onclick="openLibraryModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          <line x1="8" y1="6" x2="16" y2="6"></line>
+          <line x1="8" y1="10" x2="14" y2="10"></line>
+        </svg>
+        <span class="nav-label">Bibliothèque</span>
+      </button>
+
+      <button class="nav-item" id="navPluginsBtn" onclick="openPluginsModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v6"></path>
+          <path d="M19 13a7 7 0 1 1-14 0c0-2.5 1.5-4.7 3.6-5.8"></path>
+          <circle cx="12" cy="13" r="3"></circle>
+        </svg>
+        <span class="nav-label">Plugins</span>
+      </button>
+
+      <button class="nav-item" id="navAgentsBtn" onclick="openAgentsStudioModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+          <circle cx="12" cy="5" r="2"></circle>
+          <path d="M12 7v4"></path>
+          <line x1="8" y1="16" x2="8.01" y2="16"></line>
+          <line x1="16" y1="16" x2="16.01" y2="16"></line>
+        </svg>
+        <span class="nav-label">Agents Studio</span>
+      </button>
+
+      <!-- USE CASE BOUTON -->
+      <button class="nav-item" id="navUseCaseBtn" onclick="openUseCaseModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18h6"></path>
+          <path d="M10 22h4"></path>
+          <path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"></path>
+        </svg>
+        <span class="nav-label">Use Case</span>
+      </button>
+
+      <!-- MICRO-APPS STUDIO BOUTON -->
+      <button class="nav-item" id="navMicroAppsBtn" onclick="openMicroAppsStudioModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+          <line x1="16" y1="8" x2="2" y2="22"></line>
+          <line x1="17.5" y1="15" x2="9" y2="15"></line>
+        </svg>
+        <span class="nav-label">Micro-Apps</span>
+      </button>
+
+      <!-- WORKFLOWS VISUELS BOUTON -->
+      <button class="nav-item" id="navWorkflowsBtn" onclick="openWorkflowStudioModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="6" height="6" rx="1"></rect>
+          <rect x="15" y="3" width="6" height="6" rx="1"></rect>
+          <rect x="9" y="15" width="6" height="6" rx="1"></rect>
+          <path d="M6 9v3a3 3 0 0 0 3 3h3"></path>
+          <path d="M18 9v3a3 3 0 0 1-3 3h-3"></path>
+        </svg>
+        <span class="nav-label">Workflows IA</span>
+      </button>
+
+      <!-- SKILLS BOUTON -->
+      <button class="nav-item" id="navSkillsBtn" onclick="openSkillsModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+        </svg>
+        <span class="nav-label">Skills</span>
+      </button>
+
+      <!-- MÉMOIRE GLOBALE CONTEXTE.MD BOUTON -->
+      <button class="nav-item" id="navContextBtn" onclick="openContextModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a8 8 0 0 0-8 8c0 3.36 2.06 6.24 5 7.42V20a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2.58c2.94-1.18 5-4.06 5-7.42a8 8 0 0 0-8-8z"></path>
+          <line x1="9.5" y1="9" x2="9.51" y2="9"></line>
+          <line x1="14.5" y1="9" x2="14.51" y2="9"></line>
+          <path d="M9.5 13a3.5 3.5 0 0 0 5 0"></path>
+        </svg>
+        <span class="nav-label">Mémoire (contexte.md)</span>
+      </button>
+
+      <!-- TEAM WORKSPACES BOUTON -->
+      <button class="nav-item" id="navTeamBtn" onclick="openTeamModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        <span class="nav-label">Team & Espaces</span>
+      </button>
+
+      <!-- SECOND BRAIN BOUTON -->
+      <button class="nav-item" id="navSecondBrainBtn" onclick="openSecondBrainModal()">
+        <svg class="nav-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span class="nav-label">Second Brain</span>
+      </button>
+    </nav>
+
+    <!-- SECTION PROJETS / DISCUSSIONS -->
+    <div class="side-section side-history-section">
+      <div class="side-projects-header" id="projectsHeader" onclick="toggleProjectsCollapse()">
+        <span class="projects-title">Projets</span>
+        <svg class="projects-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </div>
+
+      <div class="history-list" id="historyList">
+        <!-- Rendu dynamique JS -->
+      </div>
+    </div>
+
+    <!-- USER PROFILE CARD -->
+    <div class="side-user" onclick="openGovModal()">
+      <div class="avatar">AM</div>
+      <div class="user-details">
+        <b>Abbas Mistrah</b>
+        <span>Transfo IA · Consultant</span>
+      </div>
+      <span class="user-badge" id="userCurrentModel">4B Pro</span>
+    </div>
+  </aside>
+
+  <!-- MAIN CHAT VIEWPORT -->
+  <main class="chat-viewport">
+
+    <!-- TOPBAR (CONVERSATION TITLE & CONTROLS) -->
+    <div class="chat-topbar" id="chatTopbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle-btn" id="mobileSidebarToggle" title="Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        
+        <div class="conv-title-wrap">
+          <span class="conv-icon" id="topbarIcon">✨</span>
+          <span class="conv-title" id="topbarTitle" title="Double-clic pour renommer">LeBon AI</span>
+          <span class="conv-status-dot" title="Ollama connecté"></span>
+        </div>
+      </div>
+
+      <!-- CHAT / WORK / CODER MODE PILL TABS -->
+      <div class="mode-tabs" id="modeTabs">
+        <button class="mode-tab active" id="tabChat" onclick="setMode('chat')">
+          <span>💬</span> Chat
+        </button>
+        <button class="mode-tab" id="tabWork" onclick="setMode('work')">
+          <span>⚡</span> Work Agent
+        </button>
+        <button class="mode-tab" id="tabCoder" onclick="setMode('coder')">
+          <span>&lt;/&gt;</span> Code Studio
+        </button>
+      </div>
+
+      <div class="topbar-right">
+        <!-- NEW CHAT SHORTCUT -->
+        <button class="topbar-action-btn" onclick="newChat()" title="Nouvelle discussion (⌘N)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN CHAT & CANVAS SPLIT CONTAINER -->
+    <div class="chat-main-split" id="chatMainSplit">
+      <!-- MESSAGES SCROLL CONTAINER -->
+      <div class="messages-container" id="messagesContainer">
+        <!-- Rendu dynamique JS : soit Welcome Hero soit Fil de discussion -->
+      </div>
+      <button class="smart-scroll-btn" id="smartScrollBtn" style="display:none" title="Défiler vers le bas">↓</button>
+
+      <!-- RIGHT: LATERAL ARTIFACTS / CANVAS PANEL (STYLE CLAUDE 3.7 / CURSOR) -->
+      <aside class="artifacts-canvas" id="artifactsCanvas" style="display:none">
+        <div class="canvas-header">
+          <div class="canvas-title-wrap">
+            <span class="canvas-icon" id="canvasIcon">⚡</span>
+            <div class="canvas-meta">
+              <span class="canvas-title" id="canvasTitle">Live Interactive Artifact</span>
+              <span class="canvas-subtitle" id="canvasSubtitle">HTML5 · Tailwind CSS · Live Sandbox</span>
+            </div>
+          </div>
+          <div class="canvas-tabs">
+            <button class="canvas-tab-btn active" id="canvasTabPreview" onclick="switchCanvasTab('preview')">▶ Aperçu Live</button>
+            <button class="canvas-tab-btn" id="canvasTabCode" onclick="switchCanvasTab('code')">&lt;/&gt; Code Source</button>
+          </div>
+          <div class="canvas-actions">
+            <button class="canvas-action-btn active" onclick="toggleCanvasViewport('desktop')" id="canvasVpDesktop" title="Vue Bureau">💻</button>
+            <button class="canvas-action-btn" onclick="toggleCanvasViewport('mobile')" id="canvasVpMobile" title="Vue Mobile">📱</button>
+            <button class="canvas-action-btn" onclick="copyCanvasContent()" title="Copier le code">📋</button>
+            
+            <!-- 1-CLICK EXPORT DROPDOWN HUB -->
+            <div class="canvas-export-wrap" style="position:relative">
+              <button class="canvas-action-btn canvas-export-btn" onclick="toggleCanvasExportMenu(event)" title="Exporter l'artefact">📑 ▾</button>
+              <div class="canvas-export-dropdown" id="canvasExportDropdown" style="display:none">
+                <button class="canvas-export-item" onclick="exportCanvasFile('html')">
+                  <span class="exp-ic">🌐</span>
+                  <div>
+                    <b>Fichier HTML Autonome</b>
+                    <small>Prototype complet ouvrable hors-ligne</small>
+                  </div>
+                </button>
+                <button class="canvas-export-item" onclick="exportCanvasFile('csv')">
+                  <span class="exp-ic">📊</span>
+                  <div>
+                    <b>Tableau de Données (CSV)</b>
+                    <small>Extraction des métriques et KPIs</small>
+                  </div>
+                </button>
+                <button class="canvas-export-item" onclick="exportCanvasFile('pdf')">
+                  <span class="exp-ic">🖨️</span>
+                  <div>
+                    <b>Imprimer / Exporter en PDF</b>
+                    <small>Fiche et slides haute résolution</small>
+                  </div>
+                </button>
+                <button class="canvas-export-item" onclick="copyCanvasContent()">
+                  <span class="exp-ic">📋</span>
+                  <div>
+                    <b>Copier le Code Source</b>
+                    <small>Code HTML/JS complet</small>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <button class="canvas-action-btn" onclick="toggleCanvasFullscreen()" title="Plein écran">⛶</button>
+            <button class="canvas-action-btn canvas-close-btn" onclick="closeCanvas()" title="Fermer le Canvas">✕</button>
+          </div>
+        </div>
+
+        <div class="canvas-body" id="canvasBody">
+          <!-- Live Preview Iframe Container -->
+          <div class="canvas-preview-container" id="canvasPreviewContainer">
+            <iframe class="canvas-preview-iframe" id="canvasPreviewIframe" sandbox="allow-scripts allow-modals allow-forms allow-same-origin"></iframe>
+          </div>
+          <!-- Code View Container -->
+          <div class="canvas-code-container" id="canvasCodeContainer" style="display:none">
+            <pre><code id="canvasCodeBlock" class="language-html"></code></pre>
+          </div>
+        </div>
+
+        <!-- CANVAS ITERATION PROMPT FOOTER & QUICK TWEAK CHIPS -->
+        <div class="canvas-prompt-footer">
+          <!-- DYNAMIC QUICK ACTION CHIPS -->
+          <div class="canvas-quick-chips" id="canvasQuickChips">
+            <!-- Rendu dynamique JS -->
+          </div>
+
+          <div class="canvas-prompt-box">
+            <input type="text" id="canvasPromptInput" placeholder="Demander une modification sur ce canvas (ex: 'ajoute un bouton', 'change le thème')...">
+            <button class="canvas-prompt-send" onclick="sendCanvasIteration()" title="Appliquer la modification">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- STICKY BOTTOM AI COMPOSER (EXACTEMENT LE DESIGN DES PHOTOS FOURNIES) -->
+    <div class="composer-wrap">
+      <!-- CONTEXT ATTACHMENT BANNER (IF ANY FILE ATTACHED) -->
+      <div class="attachment-preview" id="attachmentPreview" style="display:none">
+        <div class="att-info">
+          <span class="att-icon" id="attIcon">📄</span>
+          <span class="att-name" id="attName">document.txt</span>
+          <span class="att-size" id="attSize">(2.4 Ko)</span>
+        </div>
+        <button class="att-remove-btn" onclick="clearAttachment()" title="Retirer la pièce jointe">×</button>
+      </div>
+
+      <!-- "+" ATTACHMENT MENU (EXACTEMENT PHOTO 2) -->
+      <div class="plus-menu-dropdown" id="plusMenuDropdown" style="display:none">
+        <button class="plus-menu-item" onclick="triggerFileInput('all')">
+          <svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          <div class="item-text">
+            <span class="item-title">Ajouter des photos et fichiers</span>
+            <span class="item-desc">Importer depuis l'ordinateur</span>
+          </div>
+        </button>
+
+        <button class="plus-menu-item" onclick="openLibraryModal()">
+          <svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="14" y2="10"></line></svg>
+          <div class="item-text">
+            <span class="item-title">Ajouter depuis la bibliothèque</span>
+            <span class="item-desc">Parcourez et recherchez vos fichiers, y compris dans le Drive</span>
+          </div>
+        </button>
+
+        <button class="plus-menu-item" onclick="quickActionPrompt('Génère une image haute définition illustrant : ')">
+          <svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          <div class="item-text">
+            <span class="item-title">Créer une image</span>
+            <span class="item-desc">Transformez vos idées en images</span>
+          </div>
+        </button>
+
+        <button class="plus-menu-item" id="webMenuItem" onclick="toggleWebSearch(); closePlusMenu();">
+          <svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <div class="item-text">
+            <span class="item-title" id="webMenuTitle">Recherche sur le Web</span>
+            <span class="item-desc" id="webMenuDesc">Ajoute des résultats web réels au contexte</span>
+          </div>
+        </button>
+
+        <button class="plus-menu-item" onclick="quickActionPrompt('Trouve des lieux et adresses à proximité pour : ')">
+          <svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <div class="item-text">
+            <span class="item-title">Cartes</span>
+            <span class="item-desc">Trouver des lieux à proximité</span>
+          </div>
+        </button>
+
+        <button class="plus-menu-item" onclick="quickActionPrompt('Recherche dans la base de connaissances interne leboncoin : ')">
+          <svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          <div class="item-text">
+            <span class="item-title">Company Knowledge</span>
+            <span class="item-desc">Find decisions, documents, and project context across connected sources</span>
+          </div>
+        </button>
+
+        <button class="plus-menu-item" id="thinkMenuItem" onclick="toggleThinking(); closePlusMenu();">
+          <svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
+          <div class="item-text">
+            <span class="item-title" id="thinkMenuTitle">Réponse directe</span>
+            <span class="item-desc" id="thinkMenuDesc">Raisonnement caché désactivé pour accélérer le local</span>
+          </div>
+        </button>
+
+        <button class="plus-menu-item" onclick="openPlanModal(); closePlusMenu();">
+          <svg class="item-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <div class="item-text">
+            <span class="item-title">Planification</span>
+            <span class="item-desc">Ouvrir le plan d'action : tâches, jalons et suivi Kanban</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- MAIN COMPOSER CAPSULE (EXACTEMENT PHOTO 1) -->
+      <div class="composer-box composer-capsule" id="composerBox">
+        <button class="composer-plus-btn" id="composerPlusBtn" onclick="togglePlusMenu(event)" title="Options &amp; Outils">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <input type="file" id="fileInput" accept=".txt,.md,.csv,.json,.js,.py,.sql,.ts,.html,.css" style="display:none">
+        <input type="file" id="imageInput" accept="image/*" style="display:none">
+
+        <textarea id="composerInput" rows="1" placeholder="Demander à LeBon AI..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();handleSend();}"></textarea>
+
+        <div class="composer-right-group">
+          <!-- SELECTEUR DE MODELE (STYLE 5.6 Sol ⌵) -->
+          <div class="model-picker-sleek" id="modelPicker">
+            <button class="model-sleek-btn" id="modelPickerBtn" type="button">
+              <span class="model-icon-slot" id="modelPickerLogoSlot"></span>
+              <span class="model-name" id="modelPickerName">Auto Local</span>
+              <span class="model-chevron">⌵</span>
+            </button>
+            <div class="model-dropdown" id="modelDropdown" style="display:none">
+              <!-- Rempli dynamiquement par app.js via /api/catalog -->
+            </div>
+          </div>
+
+          <!-- ARBITRAGE QUALITÉ / VITESSE -->
+          <button class="turbo-mode-btn" id="turboBtn" onclick="toggleTurboMode()" title="Basculer entre le profil local efficace et le profil local ultra-rapide">
+            <span>✦</span><span>Auto</span>
+          </button>
+
+          <!-- MICROPHONE BUTTON (DICTÉE & TRANSCRIPTION DIRECTE) -->
+          <button class="composer-mic-btn" id="micBtn" onclick="toggleVoiceDictation()" title="Dicter un message (Transcription vocale)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+          </button>
+
+          <!-- VOICE / SEND ROUNDED ACTION BUTTON (LIVE VOICE QUAND VIDE / ENVOYER QUAND REMPLI) -->
+          <button class="composer-send-btn composer-voice-send-btn" id="sendBtn" onclick="handleSendBtnClick(event)" title="Live Voice (vide) ou Envoyer">
+            <svg class="send-icon-wave" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="9" x2="6" y2="15"></line><line x1="10" y1="5" x2="10" y2="19"></line><line x1="14" y1="7" x2="14" y2="17"></line><line x1="18" y1="10" x2="18" y2="14"></line></svg>
+            <svg class="send-icon-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- WORK AGENT STATUS BAR -->
+      <div class="work-status-bar" id="workStatusBar" style="display:none">
+        <span class="work-status-pulse"></span>
+        <span class="work-status-text" id="workStatusText">⚙ Agent en cours d'exécution…</span>
+        <span class="work-status-step" id="workStatusStep">Étape 1/25</span>
+      </div>
+
+      <!-- BULLES DE SUGGESTION SUR UNE SEULE LIGNE SOUS LA BARRE DE RECHERCHE -->
+      <div class="composer-quick-chips" id="composerQuickChips">
+        <button class="quick-chip" onclick="openMicroAppsStudioModal()">🧩 Studio Micro-Apps</button>
+        <button class="quick-chip" onclick="openWorkflowStudioModal()">🕸️ Workflows IA</button>
+        <button class="quick-chip" onclick="openRoiModal()">💡 Modéliser ROI</button>
+        <button class="quick-chip" onclick="quickPrompt('Rédiger une Fiche Use Case IA au standard F3')">📄 Fiche Use Case IA</button>
+        <button class="quick-chip" onclick="setMode('coder')">⚡ Code Studio</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- COMMAND PALETTE & SEARCH MODAL (⌘K) -->
+<div class="modal-backdrop" id="cmdModal" style="display:none">
+  <div class="cmd-palette-box">
+    <div class="cmd-header">
+      <span class="cmd-icon">⌘</span>
+      <input type="text" id="cmdSearchInput" placeholder="Rechercher une discussion, un prompt ou lancer une action…">
+      <span class="cmd-esc-badge" onclick="closeSearchModal()">ESC</span>
+    </div>
+    <div class="cmd-results" id="cmdResults">
+      <!-- Rendu dynamique JS -->
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXT MENU MODAL (POUR RENOMMER / SUPPRIMER / EXPORTER) -->
+<div class="context-menu" id="contextMenu" style="display:none"></div>
+
+<!-- ATTACHMENT POPUP -->
+<div class="attach-popup" id="attachPopup" style="display:none">
+  <div class="attach-opt" onclick="triggerFileInput('text')">
+    <span class="opt-ic">TXT</span>
+    <div>
+      <div class="opt-nm">Document texte / Code</div>
+      <div class="opt-sub">.txt, .md, .csv, .json, .py, .js, .sql</div>
+    </div>
+  </div>
+  <div class="attach-opt" onclick="triggerFileInput('image')">
+    <span class="opt-ic">IMG</span>
+    <div>
+      <div class="opt-nm">Image / Capture d'écran</div>
+      <div class="opt-sub">PNG, JPG, WEBP</div>
+    </div>
+  </div>
+</div>
+
+<!-- DRAG & DROP OVERLAY -->
+<div class="dnd-overlay" id="dndOverlay" style="display:none">
+  <div class="dnd-content">
+    <div class="dnd-icon">↓</div>
+    <div class="dnd-title">Dépose ton fichier ici</div>
+    <div class="dnd-sub">Il sera immédiatement injecté dans la discussion</div>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATIONS -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- LIVE CODE PREVIEW & SANDBOX MODAL -->
+<div class="agent-modal" id="previewModal" style="display:none">
+  <div class="agent-modal-backdrop" onclick="closePreviewModal()"></div>
+  <div class="agent-modal-dialog preview-dialog">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="preview-badge">&lt;/&gt;</span>
+        <div>
+          <h3>Live Sandbox &amp; Interactive Preview</h3>
+          <small>Bac à sable d'exécution en temps réel · HTML5, Tailwind &amp; JS</small>
+        </div>
+      </div>
+
+      <!-- Device Viewport Switcher -->
+      <div class="preview-viewport-toggle">
+        <button class="viewport-btn active" id="vpDesktop" onclick="setPreviewViewport('100%')" title="Desktop">🖥️ Desktop</button>
+        <button class="viewport-btn" id="vpTablet" onclick="setPreviewViewport('768px')" title="Tablette">📱 Tablette</button>
+        <button class="viewport-btn" id="vpMobile" onclick="setPreviewViewport('375px')" title="Mobile">📱 Mobile</button>
+      </div>
+
+      <div class="preview-header-actions">
+        <button class="preview-tool-btn" onclick="openPreviewInNewTab()" title="Ouvrir dans un nouvel onglet plein écran">🚀 Plein écran</button>
+        <button class="preview-tool-btn" onclick="downloadPreviewHtml()" title="Télécharger le fichier .html">💾 Télécharger</button>
+        <button class="preview-tool-btn" onclick="reloadPreview()" title="Recharger">🔄 Recharger</button>
+        <button class="preview-tool-btn" onclick="copyPreviewCode()" title="Copier le code">📋 Copier</button>
+        <button class="agent-modal-close" onclick="closePreviewModal()">×</button>
+      </div>
+    </div>
+    <div class="agent-modal-body preview-body">
+      <div class="preview-iframe-wrapper" id="previewIframeWrapper">
+        <iframe id="previewIframe" sandbox="allow-scripts allow-modals allow-forms allow-same-origin allow-popups"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIMULATEUR ROI TRANSFO IA MODAL -->
+<div class="agent-modal" id="roiModal" style="display:none">
+  <div class="agent-modal-backdrop" onclick="closeRoiModal()"></div>
+  <div class="agent-modal-dialog roi-dialog">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="roi-badge">€</span>
+        <div>
+          <h3>Simulateur de ROI Transfo IA 360</h3>
+          <small>Modélisation financière certifiée pour arbitrages leboncoin</small>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeRoiModal()">×</button>
+    </div>
+    <div class="agent-modal-body roi-body">
+      <div class="roi-grid">
+        <div class="roi-inputs">
+          <div class="roi-field">
+            <div class="roi-label-row">
+              <label>Effectif concerné</label>
+              <b class="roi-val" id="roiUsersVal">3 pers.</b>
+            </div>
+            <input type="range" id="roiUsersInput" min="1" max="100" value="3" oninput="calculateROI()">
+          </div>
+
+          <div class="roi-field">
+            <div class="roi-label-row">
+              <label>Temps économisé / pers. / semaine</label>
+              <b class="roi-val" id="roiHoursVal">3.0 h/sem.</b>
+            </div>
+            <input type="range" id="roiHoursInput" min="0.5" max="10" step="0.5" value="3" oninput="calculateROI()">
+          </div>
+
+          <div class="roi-field">
+            <div class="roi-label-row">
+              <label>Coût horaire moyen chargé</label>
+              <b class="roi-val" id="roiRateVal">45 €/h</b>
+            </div>
+            <input type="range" id="roiRateInput" min="20" max="150" step="5" value="45" oninput="calculateROI()">
+          </div>
+
+          <div class="roi-field">
+            <div class="roi-label-row">
+              <label>Coût de l'outil / licence / mois</label>
+              <b class="roi-val" id="roiCostVal">30 €/mois</b>
+            </div>
+            <input type="range" id="roiCostInput" min="0" max="200" step="5" value="30" oninput="calculateROI()">
+          </div>
+        </div>
+
+        <div class="roi-results">
+          <div class="roi-kpi-card highlight">
+            <small>Gains Nets Annuels Estimés</small>
+            <div class="roi-kpi-num" id="roiNetGain">17 550 €</div>
+            <span class="roi-kpi-sub">Gain brut après déduction des coûts d'outils</span>
+          </div>
+
+          <div class="roi-kpi-row">
+            <div class="roi-kpi-card">
+              <small>Heures Économisées / an</small>
+              <div class="roi-kpi-num" id="roiTotalHours">414 h</div>
+            </div>
+            <div class="roi-kpi-card">
+              <small>ROI Global</small>
+              <div class="roi-kpi-num" id="roiPct">1 625 %</div>
+            </div>
+          </div>
+
+          <div class="roi-payback-card">
+            <span>Délai de rentabilité (Payback) :</span>
+            <b id="roiPayback">0.7 mois</b>
+          </div>
+
+          <button class="roi-inject-btn" onclick="injectRoiIntoChat()">
+            ⚡ Injecter cette modélisation dans le Chat (Fiche F3)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STUDIO SYNTHÈSE COMEX MODAL -->
+<div class="agent-modal" id="comexModal" style="display:none">
+  <div class="agent-modal-backdrop" onclick="closeComexModal()"></div>
+  <div class="agent-modal-dialog comex-dialog">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="comex-badge">★</span>
+        <div>
+          <h3>Générateur de Note Exécutive COMEX</h3>
+          <small>Format standard F3 : 5 points stratégiques pour la direction</small>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeComexModal()">×</button>
+    </div>
+    <div class="agent-modal-body comex-body">
+      <div class="comex-form">
+        <div class="comex-field">
+          <label>Période &amp; Titre du brief</label>
+          <input type="text" id="comexPeriodInput" value="Point d'Avancement Transfo IA 360 · Semaine 33">
+        </div>
+        <div class="comex-field">
+          <label>Top 3 Victoires / Livraisons clés de la semaine</label>
+          <textarea id="comexWinsInput" rows="2">1. Sales Genius passé en Live sur l'Immobilier (100% adoption)&#10;2. 62.5% de Tech WAU atteint sur Ollama local&#10;3. Modèle ROI validé pour la direction financière</textarea>
+        </div>
+        <div class="comex-field">
+          <label>2 Blockers majeurs à lever d'urgence</label>
+          <textarea id="comexBlockersInput" rows="2">1. Validation DPO pour les connecteurs BigQuery&#10;2. Allocation de licences Cloud supplémentaires</textarea>
+        </div>
+        <div class="comex-field">
+          <label>Recommandation stratégique clé</label>
+          <input type="text" id="comexRecInput" value="Accélérer l'onboarding Produit et prioriser les use cases à fort ROI">
+        </div>
+        <button class="comex-generate-btn" onclick="generateComexNote()">
+          ★ Générer la Note Officielle COMEX F3
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GOUVERNANCE & SYSTEM TELEMETRY MODAL -->
+<div class="agent-modal" id="govModal" style="display:none">
+  <div class="agent-modal-backdrop" onclick="closeGovModal()"></div>
+  <div class="agent-modal-dialog gov-dialog">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="gov-badge">📊</span>
+        <div>
+          <h3>Télémétrie &amp; Gouvernance Locale</h3>
+          <small>Contrôle de souveraineté, modèles installés et ressources machine</small>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeGovModal()">×</button>
+    </div>
+    <div class="agent-modal-body gov-body">
+      <div class="gov-grid" id="govGrid">
+        <div class="gov-card">
+          <h4>Souveraineté des Données</h4>
+          <div class="gov-stat-num" style="color:var(--green)">100% LOCAL</div>
+          <p>Toutes les inférences tournent sur ton PC via Ollama. Zéro fuite de données vers des serveurs tiers.</p>
+        </div>
+        <div class="gov-card">
+          <h4>Ressources Système</h4>
+          <div class="gov-specs" id="govSpecs">
+            <div><span>OS :</span> <b id="govOs">Windows 11</b></div>
+            <div><span>RAM :</span> <b id="govRam">-- / -- Go</b></div>
+            <div><span>CPU :</span> <b id="govCpu">--</b></div>
+            <div><span>Uptime :</span> <b id="govUptime">--</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gov-models-section">
+        <h4>Catalogue des Modèles IA Locaux</h4>
+        <div class="gov-models-list" id="govModelsList">
+          <!-- Dynamique JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- USE CASE MODAL (3 ACTIONS : CRÉER, STORE, DEMANDER) -->
+<div class="agent-modal" id="useCaseModal" style="display:none">
+  <div class="agent-modal-backdrop" onclick="closeUseCaseModal()"></div>
+  <div class="agent-modal-dialog use-case-dialog">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="gov-badge" style="background:var(--orange-soft); color:var(--orange-deep)">💡</span>
+        <div>
+          <h3>Use Cases IA leboncoin</h3>
+          <small>Cadrage standard F3, catalogue 370 live et accompagnement</small>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeUseCaseModal()">×</button>
+    </div>
+    <div class="agent-modal-body use-case-modal-body">
+      <div class="use-case-cards-grid">
+        <!-- 1. Créer mon Use Case -->
+        <div class="use-case-action-card" onclick="actionCreateUseCase()">
+          <div class="uc-card-icon-wrap orange">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          </div>
+          <div class="uc-card-content">
+            <div class="uc-card-title">Créer mon Use Case</div>
+            <div class="uc-card-desc">Générer une fiche use case officielle au standard F3 (objectifs, KPIs cibles, volumétrie, architecture et rentabilité).</div>
+          </div>
+          <div class="uc-card-badge">Cadrage F3 ›</div>
+        </div>
+
+        <!-- 2. Use Case Store -->
+        <div class="use-case-action-card" onclick="actionOpenUseCaseStore()">
+          <div class="uc-card-icon-wrap blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+          <div class="uc-card-content">
+            <div class="uc-card-title">Use Case Store</div>
+            <div class="uc-card-desc">Explorer le catalogue des 370 use cases live & qualifiés leboncoin (Tech, Produit, Data, Sales, RH & Finance).</div>
+          </div>
+          <div class="uc-card-badge">370 Live ›</div>
+        </div>
+
+        <!-- 3. Demander un Use Case -->
+        <div class="use-case-action-card" onclick="actionRequestUseCase()">
+          <div class="uc-card-icon-wrap green">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          </div>
+          <div class="uc-card-content">
+            <div class="uc-card-title">Demander un Use Case</div>
+            <div class="uc-card-desc">Soumettre un besoin ou une idée métier à l'équipe IA pour étude de faisabilité, prototypage et accompagnement.</div>
+          </div>
+          <div class="uc-card-badge">Soumettre ›</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BIBLIOTHÈQUE MODAL (DOCUMENTS, PROMPTS, ARTEFACTS) -->
+<div class="agent-modal" id="libraryModal" style="display:none">
+  <div class="agent-modal-backdrop" onclick="closeLibraryModal()"></div>
+  <div class="agent-modal-dialog library-dialog">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="gov-badge" style="background:rgba(37,99,235,0.1); color:#2563eb">📚</span>
+        <div>
+          <h3>Bibliothèque &amp; Connaissances</h3>
+          <small>Documents indexés, templates de prompts et artefacts sauvegardés</small>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeLibraryModal()">×</button>
+    </div>
+
+    <!-- TABS BIBLIOTHÈQUE -->
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="libTabDocs" onclick="switchLibTab('docs')">📁 Documents &amp; Fichiers</button>
+      <button class="modal-tab-btn" id="libTabPrompts" onclick="switchLibTab('prompts')">⚡ Prompts &amp; Templates</button>
+      <button class="modal-tab-btn" id="libTabUpload" onclick="switchLibTab('upload')">➕ Ajouter un Document</button>
+    </div>
+
+    <div class="agent-modal-body library-modal-body">
+      <!-- Search & Filters Bar -->
+      <div class="lib-toolbar">
+        <div class="lib-search-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="libSearchInput" placeholder="Rechercher dans la bibliothèque..." oninput="filterLibraryItems()">
+        </div>
+      </div>
+
+      <!-- Content Container -->
+      <div id="libContentArea" class="lib-items-list">
+        <!-- Rendu dynamique JS -->
+      </div>
+
+      <!-- Formulaire d'upload de document -->
+      <div id="libUploadArea" class="lib-upload-form" style="display:none">
+        <div class="comex-field">
+          <label>Titre du document ou ressource</label>
+          <input type="text" id="libNewTitle" placeholder="Ex: Spécifications API Recherche V2">
+        </div>
+        <div class="comex-field">
+          <label>Catégorie / Tag</label>
+          <input type="text" id="libNewTag" placeholder="Ex: Tech, Produit, Data, RGPD">
+        </div>
+        <div class="comex-field">
+          <label>Contenu textuel / Documentation / Extrait</label>
+          <textarea id="libNewContent" rows="6" placeholder="Colle le texte ou la documentation à indexer dans la bibliothèque..."></textarea>
+        </div>
+        <button class="comex-generate-btn" onclick="saveNewLibraryDoc()">
+          💾 Enregistrer dans la Bibliothèque
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS HUB MODAL (MES SKILLS, CRÉER, STORE) -->
+<div class="agent-modal" id="skillsModal" style="display:none">
+  <div class="agent-modal-backdrop" onclick="closeSkillsModal()"></div>
+  <div class="agent-modal-dialog skills-dialog">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="gov-badge" style="background:var(--orange-soft); color:var(--orange-deep)">🧩</span>
+        <div>
+          <h3>Skills Hub · Compétences IA</h3>
+          <small>Création, gestion et catalogue de compétences sur-mesure pour votre agent</small>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeSkillsModal()">×</button>
+    </div>
+
+    <!-- TABS SKILLS -->
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="skillsTabList" onclick="switchSkillsTab('list')">🧩 Mes Skills</button>
+      <button class="modal-tab-btn" id="skillsTabCreate" onclick="switchSkillsTab('create')">➕ Créer un Skill</button>
+      <button class="modal-tab-btn" id="skillsTabStore" onclick="switchSkillsTab('store')">🏪 Skills Store</button>
+    </div>
+
+    <div class="agent-modal-body skills-modal-body">
+      <!-- 1. Mes Skills List -->
+      <div id="skillsListArea" class="skills-grid-container">
+        <!-- Rendu dynamique JS -->
+      </div>
+
+      <!-- 2. Créer un Skill Form -->
+      <div id="skillsCreateArea" class="skills-create-form" style="display:none">
+        <div class="form-row-2">
+          <div class="comex-field">
+            <label>Nom du Skill</label>
+            <input type="text" id="skillFormName" placeholder="Ex: Expert Dataform & BigQuery">
+          </div>
+          <div class="comex-field">
+            <label>Icône / Emoji &amp; Catégorie</label>
+            <input type="text" id="skillFormIconCat" placeholder="📊 · Data">
+          </div>
+        </div>
+
+        <div class="comex-field">
+          <label>Description courte</label>
+          <input type="text" id="skillFormDesc" placeholder="Ex: Rédige et optimise des transformations SQL BigQuery et Dataform">
+        </div>
+
+        <div class="comex-field">
+          <label>Instructions Système (System Prompt)</label>
+          <textarea id="skillFormPrompt" rows="5" placeholder="Tu es un expert en... Tes missions sont de..."></textarea>
+        </div>
+
+        <div class="comex-field">
+          <label>Outils autorisés (séparés par des virgules)</label>
+          <input type="text" id="skillFormTools" value="run_command, read_file, write_file, web_search">
+        </div>
+
+        <button class="comex-generate-btn" onclick="saveNewSkill()">
+          ✨ Sauvegarder &amp; Activer ce Skill
+        </button>
+      </div>
+
+      <!-- 3. Skills Store -->
+      <div id="skillsStoreArea" class="skills-grid-container" style="display:none">
+        <!-- Rendu dynamique Store JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: AGENTS STUDIO (CRÉATEUR D'AGENTS MÉTIERS NO-CODE) -->
+<div class="modal-backdrop" id="agentsStudioModal" style="display:none">
+  <div class="agent-modal-dialog agent-studio-dialog" onclick="event.stopPropagation()">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="agent-modal-icon">🤖</span>
+        <div>
+          <h3>Studio des Agents Métiers</h3>
+          <p>Créez, configurez et déployez des agents IA autonomes pour vos départements</p>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeAgentsStudioModal()">×</button>
+    </div>
+
+    <!-- TABS AGENTS STUDIO -->
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="agentsTabCatalog" onclick="switchAgentsStudioTab('catalog')">👥 Mes Agents Métiers</button>
+      <button class="modal-tab-btn" id="agentsTabCreate" onclick="switchAgentsStudioTab('create')">➕ Créer un Nouvel Agent</button>
+      <button class="modal-tab-btn" id="agentsTabStore" onclick="switchAgentsStudioTab('store')">🏪 Bibliothèque Groupe Adevinta</button>
+    </div>
+
+    <div class="agent-modal-body">
+      <!-- 1. Mes Agents List -->
+      <div id="agentsCatalogArea" class="agents-catalog-grid">
+        <!-- Rendu dynamique JS -->
+      </div>
+
+      <!-- 2. Créer un Agent Form -->
+      <div id="agentsCreateArea" class="agents-create-form" style="display:none">
+        <div class="form-row-2">
+          <div class="comex-field">
+            <label>Nom de l'Agent</label>
+            <input type="text" id="agentFormName" placeholder="Ex: Agent Modération Annonces">
+          </div>
+          <div class="form-row-2" style="gap:8px">
+            <div class="comex-field">
+              <label>Avatar / Emoji</label>
+              <input type="text" id="agentFormIcon" placeholder="🛡️" value="🤖">
+            </div>
+            <div class="comex-field">
+              <label>Département</label>
+              <select id="agentFormDept">
+                <option value="Tech & Produit">Tech &amp; Produit</option>
+                <option value="Data & IA">Data &amp; IA</option>
+                <option value="RH & Recrutement">RH &amp; Recrutement</option>
+                <option value="Modération & Confiance">Modération &amp; Confiance</option>
+                <option value="Juridique & RGPD">Juridique &amp; RGPD</option>
+                <option value="Marketing & Vente">Marketing &amp; Vente</option>
+                <option value="Finance & COMEX">Finance &amp; COMEX</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="comex-field">
+            <label>Modèle IA Assigné</label>
+            <select id="agentFormModel">
+              <option value="lebon-ai:auto">✦ LeBon Auto Local (~14–36 tok/s)</option>
+              <option value="gemma3:1b">💬 Conversation Naturelle (~36 tok/s)</option>
+              <option value="qwen2.5:3b">◆ Travail Pro (~14 tok/s)</option>
+              <option value="qwen2.5:1.5b">◇ Travail Rapide (~29 tok/s)</option>
+              <option value="lebon-ai:fast">⚡ LeBon Local Rapide (~62 tok/s)</option>
+              <option value="qwen2.5:0.5b">⚡ LeBon Local Ultra-rapide (~72 tok/s)</option>
+              <option value="qwen3:4b">🧠 LeBon Local 4B expérimental (~11 tok/s)</option>
+            </select>
+          </div>
+          <div class="comex-field">
+            <label>Mission Principale (Description)</label>
+            <input type="text" id="agentFormDesc" placeholder="Ex: Audit et validation automatique de conformité des annonces">
+          </div>
+        </div>
+
+        <div class="comex-field">
+          <label>Consignes Système (System Prompt Spécialisé)</label>
+          <textarea id="agentFormPrompt" rows="4" placeholder="Tu es un agent expert spécialisé en... Tu dois respecter les règles suivantes... Applique toujours le format F3 (Lire en 5s, comprendre en 30s, agir en 2 clics)..."></textarea>
+        </div>
+
+        <div class="comex-field">
+          <label>Outils &amp; Capacités autorisées</label>
+          <div class="agent-tools-checkboxes">
+            <label class="tool-checkbox"><input type="checkbox" id="toolExec" checked> 🖥️ Exécution de commandes</label>
+            <label class="tool-checkbox"><input type="checkbox" id="toolFiles" checked> 📄 Lecture/Écriture fichiers</label>
+            <label class="tool-checkbox"><input type="checkbox" id="toolWeb" checked> 🌐 Recherche Web en temps réel</label>
+            <label class="tool-checkbox"><input type="checkbox" id="toolSandbox" checked> ⚡ Live Sandbox Code Studio</label>
+          </div>
+        </div>
+
+        <button class="comex-generate-btn" onclick="saveNewCustomAgent()">
+          ✨ Créer &amp; Déployer cet Agent
+        </button>
+      </div>
+
+      <!-- 3. Store / Modèles Prêts à l'emploi -->
+      <div id="agentsStoreArea" class="agents-catalog-grid" style="display:none">
+        <!-- Rendu dynamique Store JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: MÉMOIRE GLOBALE VIVANTE (CONTEXTE.MD) -->
+<div class="modal-backdrop" id="contextModal" style="display:none">
+  <div class="agent-modal-dialog context-dialog" onclick="event.stopPropagation()">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="agent-modal-icon">🧠</span>
+        <div>
+          <h3>Mémoire Globale Vivante (<code>contexte.md</code>)</h3>
+          <p>Mémoire partagée et persistante injectée automatiquement à chaque requête IA</p>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeContextModal()">×</button>
+    </div>
+
+    <!-- TABS CONTEXT MODAL -->
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="contextTabPreview" onclick="switchContextTab('preview')">👁️ Aperçu Formaté</button>
+      <button class="modal-tab-btn" id="contextTabEdit" onclick="switchContextTab('edit')">✏️ Éditer le Fichier MD</button>
+      <button class="modal-tab-btn" id="contextTabAppend" onclick="switchContextTab('append')">➕ Ajouter une Note Rapide</button>
+    </div>
+
+    <div class="agent-modal-body context-modal-body">
+      <!-- 1. Aperçu Formaté -->
+      <div id="contextPreviewArea" class="context-preview-area">
+        <div class="context-meta-bar">
+          <span class="context-badge-tag" id="contextFileSize">Taille : ~2.4 Ko</span>
+          <span class="context-badge-tag" id="contextLastMod">Dernière synchro : En direct</span>
+          <span class="context-badge-tag success">✓ 100% Persistant (contexte.md)</span>
+        </div>
+        <div class="context-rendered-html" id="contextRenderedHtml">
+          <!-- Rendu dynamique JS -->
+        </div>
+      </div>
+
+      <!-- 2. Éditeur Markdown Direct -->
+      <div id="contextEditArea" class="context-edit-area" style="display:none">
+        <div class="context-edit-notice">
+          ℹ️ Toute modification enregistrée ici sera instantanément prise en compte dans toutes vos futures requêtes et discussions.
+        </div>
+        <textarea id="contextRawTextarea" class="context-raw-textarea" spellcheck="false"></textarea>
+        <div class="context-edit-actions">
+          <button class="comex-generate-btn" onclick="saveContextFile()">
+            💾 Sauvegarder dans contexte.md
+          </button>
+          <button class="btn-secondary" onclick="loadContextFile()">
+            🔄 Réinitialiser / Recharger
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. Ajouter une Note Rapide -->
+      <div id="contextAppendArea" class="context-append-area" style="display:none">
+        <div class="comex-field">
+          <label>Note ou Décision Importante à Mémoriser</label>
+          <textarea id="contextAppendNote" rows="4" placeholder="Ex: Décision COMEX du 18/08 : validation du déploiement de l'Agent Modération pour l'équipe Confiance avec Adevinta Flash."></textarea>
+        </div>
+        <button class="comex-generate-btn" onclick="appendQuickNoteToContext()">
+          ✨ Graver dans la Mémoire Globale
+        </button>
+      </div>
+    </div>
+
+    <div class="context-modal-footer">
+      <div class="context-footer-left">
+        <span>Fichier source : <code>./contexte.md</code></span>
+      </div>
+      <div class="context-footer-right">
+        <button class="modal-tool-btn" onclick="copyContextContent()">📋 Copier MD</button>
+        <button class="modal-tool-btn" onclick="downloadContextFile()">⬇ Télécharger contexte.md</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: PLUGINS & CONNECTEURS D'ENTREPRISE -->
+<div class="modal-backdrop" id="pluginsModal" style="display:none">
+  <div class="agent-modal-dialog plugins-dialog" onclick="event.stopPropagation()">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="agent-modal-icon">🔌</span>
+        <div>
+          <h3>Plugins &amp; Connecteurs d'Entreprise (MCP)</h3>
+          <p>Activez et testez en direct les connecteurs de données, outils DevOps et intégrations métiers</p>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closePluginsModal()">×</button>
+    </div>
+
+    <!-- TABS PLUGINS -->
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="pluginsTabAll" onclick="switchPluginsTab('all')">⚡ Connecteurs Entreprise</button>
+      <button class="modal-tab-btn" id="pluginsTabComposio" onclick="switchPluginsTab('composio')">🏪 Hub Composio &amp; MCP (250+ Apps)</button>
+      <button class="modal-tab-btn" id="pluginsTabConfig" onclick="switchPluginsTab('config')">⚙️ Config Serveurs MCP</button>
+      <button class="modal-tab-btn" id="pluginsTabTester" onclick="switchPluginsTab('tester')">🧪 Testeur en Direct</button>
+    </div>
+
+    <div class="agent-modal-body">
+      <!-- 1. Grid des Connecteurs Entreprise -->
+      <div id="pluginsGrid" class="plugins-grid-container">
+        <!-- Rendu dynamique JS -->
+      </div>
+
+      <!-- 2. Hub Composio & 250+ Apps -->
+      <div id="pluginsComposioArea" class="plugins-grid-container" style="display:none">
+        <!-- Rendu dynamique Composio JS -->
+      </div>
+
+      <!-- 3. Configuration Serveurs MCP JSON -->
+      <div id="pluginsConfigArea" class="plugins-config-area" style="display:none">
+        <div class="context-edit-notice">
+          ℹ️ Compatible avec le standard officiel <b>Anthropic Model Context Protocol (MCP)</b> (Cursor, Claude Desktop, Antigravity). Déclarez vos serveurs MCP locaux ou distants :
+        </div>
+        <textarea id="mcpConfigTextarea" class="context-raw-textarea" spellcheck="false" style="height:280px"></textarea>
+        <div class="context-edit-actions">
+          <button class="comex-generate-btn" onclick="saveMcpConfig()">
+            💾 Sauvegarder la Configuration MCP
+          </button>
+          <button class="btn-secondary" onclick="loadMcpConfig()">
+            🔄 Recharger la Configuration
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Live Interactive Tester -->
+      <div id="pluginTesterArea" class="plugin-tester-area" style="display:none">
+        <div class="form-row-2">
+          <div class="comex-field">
+            <label>Connecteur MCP à tester</label>
+            <select id="testerToolSelect" onchange="onTesterToolChange()">
+              <option value="sql">🗄️ Google BigQuery SQL (Données leboncoin)</option>
+              <option value="web">🌐 Live Web Search (Recherche en direct)</option>
+              <option value="git">🐙 Git DevOps &amp; Codebase Inspector</option>
+              <option value="slack">💬 Slack &amp; Teams Executive Bot</option>
+              <option value="jira">📋 Jira &amp; Confluence Agile Story</option>
+              <option value="devtools">🛠️ Chrome DevTools (Audit a11y &amp; RGAA)</option>
+            </select>
+          </div>
+          <div class="comex-field">
+            <label id="testerQueryLabel">Paramètre / Requête de test</label>
+            <input type="text" id="testerQueryInput" value="SELECT * FROM ads_moderation WHERE status = 'flagged_fraud';">
+          </div>
+        </div>
+
+        <button class="comex-generate-btn" id="testerRunBtn" onclick="runPluginTester()">
+          ▶ Exécuter le Connecteur en Direct
+        </button>
+
+        <div class="tester-output-box" id="testerOutputBox" style="display:none">
+          <div class="tester-output-header">
+            <span class="tester-output-title">Résultat d'exécution MCP</span>
+            <div class="tester-output-actions">
+              <span class="context-badge-tag success" id="testerStatusTag">✓ 200 OK · 14ms</span>
+              <button class="modal-tool-btn" onclick="insertTesterResultIntoChat()">⚡ Insérer dans le Chat</button>
+            </div>
+          </div>
+          <pre class="tester-output-pre" id="testerOutputPre"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="context-modal-footer">
+      <div class="context-footer-left">
+        <span>Standard : <b>Anthropic Model Context Protocol (MCP)</b> · Prêt pour la production</span>
+      </div>
+      <div class="context-footer-right">
+        <button class="modal-tool-btn" onclick="openAgentsStudioModal(); closePluginsModal();">🤖 Configurer les Agents</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: STUDIO DES MICRO-APPS MÉTIER -->
+<div class="modal-backdrop" id="microAppsModal" style="display:none">
+  <div class="agent-modal-dialog plugins-dialog" onclick="event.stopPropagation()">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="agent-modal-icon">🧩</span>
+        <div>
+          <h3>Studio des Micro-Apps Métier leboncoin (No-Code)</h3>
+          <p>Générez, lancez et exportez des micro-applications interactives prêtes pour les équipes métiers</p>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeMicroAppsStudioModal()">×</button>
+    </div>
+
+    <!-- TABS MICRO-APPS -->
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="microAppsTabCatalog" onclick="switchMicroAppsTab('catalog')">⚡ Applications Prêtes (3)</button>
+      <button class="modal-tab-btn" id="microAppsTabCreator" onclick="switchMicroAppsTab('creator')">✨ Créateur No-Code en Langage Naturel</button>
+    </div>
+
+    <div class="agent-modal-body">
+      <!-- 1. Catalog of Pre-built Micro-Apps -->
+      <div id="microAppsCatalogArea" class="plugins-grid-container">
+        <!-- App 1 : Estimateur Immo -->
+        <div class="plugin-card" onclick="launchMicroApp('immo')">
+          <div class="plugin-card-header">
+            <div class="plugin-icon-wrap" style="background:#fff4eb;border-color:#fed7aa">🏡</div>
+            <div class="plugin-info">
+              <div class="plugin-name">Estimateur de Prix Immo &amp; Décote</div>
+              <div class="plugin-type">Pôle Immobilier &amp; Data</div>
+            </div>
+            <span class="context-badge-tag success">Prêt 1-Clic</span>
+          </div>
+          <p class="plugin-desc">Calculateur interactif avec sliders (surface, ville, standing, DPE) et estimation du prix net vendeur et délai de vente.</p>
+          <div class="plugin-card-footer">
+            <span class="plugin-meta">⚡ Formulaire réactif + Calculs live</span>
+            <button class="modal-tool-btn primary" onclick="event.stopPropagation(); launchMicroApp('immo')">▶ Lancer dans le Canvas</button>
+          </div>
+        </div>
+
+        <!-- App 2 : Triage Service Client -->
+        <div class="plugin-card" onclick="launchMicroApp('support')">
+          <div class="plugin-card-header">
+            <div class="plugin-icon-wrap" style="background:#e0f2fe;border-color:#bae6fd">💬</div>
+            <div class="plugin-info">
+              <div class="plugin-name">Triage &amp; Réponses Service Client</div>
+              <div class="plugin-type">Pôle Relation Client</div>
+            </div>
+            <span class="context-badge-tag success">Prêt 1-Clic</span>
+          </div>
+          <p class="plugin-desc">Analyseur de réclamations avec détection de sentiment, catégorisation automatique et proposition de réponse pré-rédigée F3.</p>
+          <div class="plugin-card-footer">
+            <span class="plugin-meta">⚡ Détection IA + Templates F3</span>
+            <button class="modal-tool-btn primary" onclick="event.stopPropagation(); launchMicroApp('support')">▶ Lancer dans le Canvas</button>
+          </div>
+        </div>
+
+        <!-- App 3 : Optimiseur SEO Annonces -->
+        <div class="plugin-card" onclick="launchMicroApp('seo')">
+          <div class="plugin-card-header">
+            <div class="plugin-icon-wrap" style="background:#dcfce7;border-color:#bbf7d0">🎯</div>
+            <div class="plugin-info">
+              <div class="plugin-name">Optimiseur Titres &amp; Conversion Annonce</div>
+              <div class="plugin-type">Pôle Commercial &amp; Marketplace</div>
+            </div>
+            <span class="context-badge-tag success">Prêt 1-Clic</span>
+          </div>
+          <p class="plugin-desc">Évalue le titre et la description d'une annonce, calcule un score d'attractivité sur 100 et suggère les mots-clés les plus recherchés.</p>
+          <div class="plugin-card-footer">
+            <span class="plugin-meta">⚡ Score /100 + Mots-clés</span>
+            <button class="modal-tool-btn primary" onclick="event.stopPropagation(); launchMicroApp('seo')">▶ Lancer dans le Canvas</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. No-Code Creator -->
+      <div id="microAppsCreatorArea" class="plugins-config-area" style="display:none">
+        <div class="context-edit-notice">
+          ✨ <b>Générateur No-Code</b> : Décrivez votre besoin métier et LeBon AI construira une véritable micro-application web interactive autonome dans le Canvas.
+        </div>
+        <div class="comex-field" style="margin-top:12px">
+          <label>Description de l'application métier souhaitée</label>
+          <textarea id="microAppPromptInput" rows="3" placeholder="Ex: Crée un simulateur de frais d'expédition Mondial Relay vs Colissimo avec comparateur de tarifs selon le poids du colis...">Crée un simulateur interactif de rentabilité pour booster les annonces premium avec calcul des vues supplémentaires estimées et ROI de conversion.</textarea>
+        </div>
+        
+        <div class="context-edit-actions" style="margin-top:12px">
+          <button class="comex-generate-btn" onclick="generateCustomMicroApp()">
+            ⚡ Générer &amp; Ouvrir l'Application dans le Canvas
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="context-modal-footer">
+      <div class="context-footer-left">
+        <span>Standard : <b>HTML5 / Tailwind / JavaScript Autonome</b> · Exportable en 1-Clic</span>
+      </div>
+      <div class="context-footer-right">
+        <button class="modal-tool-btn" onclick="closeMicroAppsStudioModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: STUDIO DE WORKFLOWS VISUELS -->
+<div class="modal-backdrop" id="workflowModal" style="display:none">
+  <div class="agent-modal-dialog plugins-dialog" onclick="event.stopPropagation()">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="agent-modal-icon">🕸️</span>
+        <div>
+          <h3>Studio de Workflows Visuels &amp; Pipelines IA (Style Langflow)</h3>
+          <p>Orchestrez et exécutez visuellement des chaînes de traitement multi-agents locales</p>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeWorkflowStudioModal()">×</button>
+    </div>
+
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="wfTab1" onclick="switchWorkflowPreset('moderation')">🛡️ Pipeline Modération &amp; Triage</button>
+      <button class="modal-tab-btn" id="wfTab2" onclick="switchWorkflowPreset('comex')">📑 Pipeline Synthèse COMEX F3</button>
+      <button class="modal-tab-btn" id="wfTab3" onclick="switchWorkflowPreset('audit')">🔒 Pipeline Audit Souveraineté</button>
+    </div>
+
+    <div class="agent-modal-body" style="padding:14px 18px">
+      <!-- Top Action Bar -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <b id="wfPipelineTitle" style="font-size:14px;color:var(--ink)">Pipeline : Modération &amp; Triage Automatique des Annonces</b>
+          <p id="wfPipelineDesc" style="font-size:11px;color:var(--muted);margin:0">4 étapes automatisées · Zéro fuite cloud · Validé RGPD</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="modal-tool-btn" onclick="openWorkflowInCanvas()">⚡ Ouvrir dans le Canvas</button>
+          <button class="comex-generate-btn" id="btnRunWorkflow" onclick="runVisualPipeline()" style="margin:0;padding:6px 14px">
+            ▶ Exécuter le Pipeline
+          </button>
+        </div>
+      </div>
+
+      <!-- Visual Node Graph Canvas -->
+      <div class="workflow-graph-canvas" id="workflowGraphCanvas">
+        <!-- Rendu dynamique JS -->
+      </div>
+
+      <!-- Execution Live Logs -->
+      <div class="workflow-logs-box" id="workflowLogsBox">
+        <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:10.5px;font-family:var(--font-mono);margin-bottom:4px">
+          <span>CONSOLE D'EXÉCUTION DU PIPELINE</span>
+          <span id="wfExecTime">Statut : En attente</span>
+        </div>
+        <div id="workflowLogsList" style="font-family:var(--font-mono);font-size:11px;color:var(--ink);space-y:3px">
+          <div style="color:var(--muted)">// Cliquez sur "Exécuter le Pipeline" pour lancer l'orchestration en direct...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="context-modal-footer">
+      <div class="context-footer-left">
+        <span>Standard : <b>Multi-Agent Pipeline Orchestration</b> · Moteur Local Ollama</span>
+      </div>
+      <div class="context-footer-right">
+        <button class="modal-tool-btn" onclick="closeWorkflowStudioModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE VOICE AI PARTNER MODAL OVERLAY (GEMINI LIVE / GPT-4O VOICE STYLE) -->
+<div class="live-voice-overlay" id="liveVoiceModal" style="display:none">
+  <div class="live-voice-container">
+    <!-- Header -->
+    <div class="live-voice-header">
+      <div class="live-voice-badge">
+        <span class="live-voice-dot"></span>
+        <span id="voiceStatusText">Écoute en continu…</span>
+      </div>
+      <button class="live-voice-close-btn" onclick="closeLiveVoiceModal()" title="Fermer">✕</button>
+    </div>
+
+    <!-- Central Glowing 3D Voice Orb -->
+    <div class="live-voice-orb-wrapper">
+      <div class="voice-orb-halo"></div>
+      <div class="voice-orb-glow"></div>
+      <div class="voice-orb-core" id="voiceOrb">
+        <div class="voice-orb-inner"></div>
+        <div class="voice-orb-particles"></div>
+      </div>
+    </div>
+
+    <!-- Dynamic Audio Waveform Equalizer -->
+    <div class="voice-equalizer" id="voiceEqualizer">
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+    </div>
+
+    <!-- Real-Time Speech Transcript Box -->
+    <div class="live-voice-transcript-box">
+      <div class="voice-user-text" id="voiceUserText">Dites par exemple : "Ouvre le simulateur immobilier" ou posez n'importe quelle question...</div>
+      <div class="voice-ai-text" id="voiceAiText">LeBon AI est connecté et à votre écoute en direct.</div>
+    </div>
+
+    <!-- Voice Command Quick Action Chips -->
+    <div class="live-voice-chips">
+      <button class="voice-chip" onclick="speakSimulatedCommand('Ouvre l\'estimateur de prix immobilier')">🏡 Estimateur Immo</button>
+      <button class="voice-chip" onclick="speakSimulatedCommand('Affiche les slides de présentation COMEX')">📑 Slides COMEX</button>
+      <button class="voice-chip" onclick="speakSimulatedCommand('Affiche le tableau de bord des indicateurs')">📊 Tableau de Bord</button>
+      <button class="voice-chip" onclick="speakSimulatedCommand('Lance le workflow de modération des annonces')">🕸️ Workflow IA</button>
+      <button class="voice-chip" onclick="speakSimulatedCommand('Calcule le ROI financier annuel')">💡 Calculer ROI</button>
+    </div>
+
+    <!-- Quick Text Voice Prompt Input -->
+    <div class="live-voice-input-box" style="width:100%;display:flex;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:9999px;padding:4px 6px 4px 14px">
+      <input type="text" id="liveVoiceTextInput" placeholder="Tapez ou dictez votre commande vocale..." style="flex:1;background:transparent;border:none;outline:none;color:#fff;font-size:12px;" onkeydown="if(event.key==='Enter') sendLiveVoiceTextInput()">
+      <button onclick="sendLiveVoiceTextInput()" style="width:28px;height:28px;border-radius:50%;background:#ff6b00;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:bold" title="Envoyer">➔</button>
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="live-voice-controls">
+      <button class="voice-ctrl-btn" id="voiceMuteBtn" onclick="toggleVoiceMute()" title="Couper / Activer le micro">
+        <svg id="voiceMicIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+      </button>
+      <button class="voice-ctrl-btn" id="voiceSpeedBtn" onclick="cycleVoiceSpeed()" title="Vitesse de voix">
+        <span id="voiceSpeedLabel" style="font-size:12px;font-weight:800">1.0x</span>
+      </button>
+      <button class="voice-ctrl-btn voice-end-btn" onclick="closeLiveVoiceModal()" title="Terminer la session vocale">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- MODAL: TEAM & COLLABORATIVE WORKSPACES (MULTI-USER & AI AGENT SWARM)     -->
+<!-- ========================================================================= -->
+<div class="modal-backdrop" id="teamModal" style="display:none" onclick="if(event.target===this) closeTeamModal()">
+  <div class="agent-modal-dialog team-dialog" onclick="event.stopPropagation()">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="agent-modal-icon">👥</span>
+        <div>
+          <h3 id="teamModalTitle">Team &amp; Espaces de Travail Collaboratifs</h3>
+          <p>Espaces partagés, présence des collaborateurs et escouade d'agents IA autonomes</p>
+        </div>
+      </div>
+      <div class="team-ws-switcher">
+        <select id="teamWsSelector" class="team-ws-select" onchange="switchTeamWorkspace(this.value)">
+          <!-- Rempli par app.js -->
+        </select>
+        <button class="team-create-ws-btn" onclick="openCreateWorkspaceDialog()" title="Créer un nouvel espace collaboratif">+ Nouvel Espace</button>
+      </div>
+      <button class="agent-modal-close" onclick="closeTeamModal()">×</button>
+    </div>
+
+    <!-- Navigation par Onglets -->
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="teamTabTasks" onclick="switchTeamTab('tasks')">📋 Tableau &amp; Tâches (Kanban)</button>
+      <button class="modal-tab-btn" id="teamTabMembers" onclick="switchTeamTab('members')">👥 Membres &amp; Présence</button>
+      <button class="modal-tab-btn" id="teamTabAgents" onclick="switchTeamTab('agents')">🤖 Escouade d'Agents IA</button>
+      <button class="modal-tab-btn" id="teamTabFeed" onclick="switchTeamTab('feed')">💬 Fil d'Activité &amp; Chat</button>
+      <button class="modal-tab-btn" id="teamTabDirectives" onclick="switchTeamTab('directives')">📄 Directives Partagées</button>
+    </div>
+
+    <div class="agent-modal-body team-modal-body">
+      <!-- PANE 1: KANBAN & TÂCHES (HUMAINS & AGENTS) -->
+      <div class="team-pane active" id="teamPaneTasks">
+        <div class="team-toolbar">
+          <div class="team-kpis-summary" id="teamKpisSummary">
+            <span class="team-kpi-badge" id="teamKpiTotalTasks">4 Tâches</span>
+            <span class="team-kpi-badge ok" id="teamKpiDoneTasks">2 Terminées</span>
+            <span class="team-kpi-badge warning" id="teamKpiActiveAgents">3 Agents assignés</span>
+          </div>
+          <button class="team-primary-btn" onclick="openAddTaskDialog()">+ Nouvelle Tâche</button>
+        </div>
+
+        <div class="team-kanban-board">
+          <!-- Col 1: À Faire -->
+          <div class="kanban-col">
+            <div class="kanban-col-header">
+              <span class="col-title">📝 À Faire (Backlog)</span>
+              <span class="col-count" id="countTodo">0</span>
+            </div>
+            <div class="kanban-cards" id="kanbanTodoCards"></div>
+          </div>
+
+          <!-- Col 2: En Cours (Humains & Agents) -->
+          <div class="kanban-col">
+            <div class="kanban-col-header">
+              <span class="col-title">⚡ En Cours</span>
+              <span class="col-count" id="countInProgress">0</span>
+            </div>
+            <div class="kanban-cards" id="kanbanInProgressCards"></div>
+          </div>
+
+          <!-- Col 3: Validé & Terminé -->
+          <div class="kanban-col">
+            <div class="kanban-col-header">
+              <span class="col-title">✅ Validé &amp; Terminé</span>
+              <span class="col-count" id="countDone">0</span>
+            </div>
+            <div class="kanban-cards" id="kanbanDoneCards"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANE 2: MEMBRES & PRÉSENCE HUMAINE -->
+      <div class="team-pane" id="teamPaneMembers" style="display:none">
+        <div class="team-toolbar">
+          <div style="font-size:12.5px;color:var(--muted)">Collaborateurs autorisés dans cet espace de travail partagé.</div>
+          <button class="team-primary-btn" onclick="openInviteMemberDialog()">+ Inviter un Membre</button>
+        </div>
+        <div class="team-members-grid" id="teamMembersGrid">
+          <!-- Rempli par app.js -->
+        </div>
+      </div>
+
+      <!-- PANE 3: ESCOUADE D'AGENTS IA AUTONOMES -->
+      <div class="team-pane" id="teamPaneAgents" style="display:none">
+        <div class="team-toolbar">
+          <div style="font-size:12.5px;color:var(--muted)">Agents IA autonomes assignés à cet espace, prêts à résoudre des tâches en 1 clic.</div>
+        </div>
+        <div class="team-agents-grid" id="teamAgentsGrid">
+          <!-- Rempli par app.js -->
+        </div>
+      </div>
+
+      <!-- PANE 4: FIL D'ACTIVITÉ & CHAT D'ÉQUIPE -->
+      <div class="team-pane" id="teamPaneFeed" style="display:none">
+        <div class="team-feed-container">
+          <div class="team-feed-messages" id="teamFeedMessages">
+            <!-- Rempli par app.js -->
+          </div>
+          <div class="team-feed-input-box">
+            <input type="text" id="teamFeedInput" placeholder="Écrire un message ou une consigne pour l'équipe et les agents..." onkeydown="if(event.key==='Enter') sendTeamFeedMessage()">
+            <button class="team-feed-send-btn" onclick="sendTeamFeedMessage()">Envoyer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANE 5: DIRECTIVES PARTAGÉES -->
+      <div class="team-pane" id="teamPaneDirectives" style="display:none">
+        <div class="team-directives-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="font-size:12.5px;font-weight:700">Mémoire &amp; Directives Partagées de l'Espace (contexte d'équipe)</div>
+            <button class="team-save-btn" onclick="saveTeamDirectives()">✓ Enregistrer</button>
+          </div>
+          <textarea id="teamDirectivesText" class="team-directives-textarea" placeholder="Définissez les objectifs, standards et règles d'or partagés par cette équipe..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- MODAL: COMPÉTENCES & CERTIFICATIONS IA (LEBONCOIN / ADEVINTA ACADEMY)     -->
+<!-- ========================================================================= -->
+<div class="modal-backdrop" id="certModal" style="display:none" onclick="if(event.target===this) closeCertModal()">
+  <div class="agent-modal-dialog cert-dialog" onclick="event.stopPropagation()">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="agent-modal-icon" style="background:#fff4eb;border:1px solid #fed7aa;color:#ff6b00">🎓</span>
+        <div>
+          <h3 id="certModalTitle">Compétences &amp; Certifications IA · Groupe Adevinta / leboncoin</h3>
+          <p id="certModalSubtitle">Paliers d'expertise validés, matrice des compétences et certificat officiel nominatif</p>
+        </div>
+      </div>
+      <div class="cert-header-score">
+        <div class="cert-score-badge">
+          <span class="cert-score-icon">⭐</span>
+          <div>
+            <div style="font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:800">Score Global</div>
+            <b style="font-size:13px;color:var(--orange)">94/100 · Master</b>
+          </div>
+        </div>
+      </div>
+      <button class="agent-modal-close" onclick="closeCertModal()">×</button>
+    </div>
+
+    <!-- TABS -->
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="certTabTracks" onclick="switchCertTab('tracks')">🏆 Parcours &amp; Paliers</button>
+      <button class="modal-tab-btn" id="certTabSkills" onclick="switchCertTab('skills')">📊 Matrice de Compétences</button>
+      <button class="modal-tab-btn" id="certTabDiploma" onclick="switchCertTab('diploma')">📜 Certificat Officiel</button>
+      <button class="modal-tab-btn" id="certTabQuiz" onclick="switchCertTab('quiz')">⚡ Défi &amp; Quiz Validation</button>
+    </div>
+
+    <div class="agent-modal-body cert-modal-body">
+      <!-- PANE 1: PARCOURS & NIVEAUX -->
+      <div class="cert-pane active" id="certPaneTracks">
+        <div class="cert-tracks-list">
+          <!-- Level 1 -->
+          <div class="cert-track-card validated">
+            <div class="cert-track-left">
+              <div class="cert-badge-level gold">🥉 Niveau 1</div>
+              <div class="cert-status-tag ok">✓ Validé (100%)</div>
+            </div>
+            <div class="cert-track-content">
+              <div class="cert-track-title">Fondamentaux IA &amp; Prompt Engineering F3</div>
+              <div class="cert-track-desc">Maîtrise du standard F3 (5s vision / 30s analyse / 2 clics action), formulation de prompts avancés, cadrage de use cases et interactions souveraines locales.</div>
+              <div class="cert-track-skills">
+                <span class="cert-skill-tag">Prompting F3</span>
+                <span class="cert-skill-tag">Cadrage Stratégique</span>
+                <span class="cert-skill-tag">Ollama Local</span>
+              </div>
+            </div>
+            <button class="cert-action-btn ok" onclick="switchCertTab('diploma')">📜 Voir Attestation</button>
+          </div>
+
+          <!-- Level 2 -->
+          <div class="cert-track-card validated">
+            <div class="cert-track-left">
+              <div class="cert-badge-level gold">🥈 Niveau 2</div>
+              <div class="cert-status-tag ok">✓ Validé (100%)</div>
+            </div>
+            <div class="cert-track-content">
+              <div class="cert-track-title">Automatisation &amp; Multi-Agents Swarm</div>
+              <div class="cert-track-desc">Création de workflows visuels, orchestration d'agents autonomes, synchronisation de tâches Kanban et délégation assistée par IA.</div>
+              <div class="cert-track-skills">
+                <span class="cert-skill-tag">Multi-Agents Swarm</span>
+                <span class="cert-skill-tag">Workflows No-Code</span>
+                <span class="cert-skill-tag">Kanban F3</span>
+              </div>
+            </div>
+            <button class="cert-action-btn ok" onclick="switchCertTab('diploma')">📜 Voir Attestation</button>
+          </div>
+
+          <!-- Level 3 -->
+          <div class="cert-track-card current">
+            <div class="cert-track-left">
+              <div class="cert-badge-level orange">🥇 Niveau 3</div>
+              <div class="cert-status-tag progress">⚡ En cours (88%)</div>
+            </div>
+            <div class="cert-track-content">
+              <div class="cert-track-title">Lead Architect &amp; Données BigQuery leboncoin</div>
+              <div class="cert-track-desc">Requêtes SQL massives optimisées, modélisation Dataform, calcul de rentabilité financière (ROI IA) et gouvernance des données.</div>
+              <div class="cert-track-skills">
+                <span class="cert-skill-tag">BigQuery Analytics</span>
+                <span class="cert-skill-tag">Calculateur ROI</span>
+                <span class="cert-skill-tag">DSA &amp; RGPD</span>
+              </div>
+            </div>
+            <button class="cert-action-btn primary" onclick="switchCertTab('quiz')">⚡ Passer l'Épreuve</button>
+          </div>
+
+          <!-- Level 4 -->
+          <div class="cert-track-card locked">
+            <div class="cert-track-left">
+              <div class="cert-badge-level locked">💎 Niveau 4</div>
+              <div class="cert-status-tag locked">🔒 À débloquer</div>
+            </div>
+            <div class="cert-track-content">
+              <div class="cert-track-title">Executive COMEX AI Master &amp; Innovation Fellow</div>
+              <div class="cert-track-desc">Direction stratégique de la transformation IA 360, arbitrage de portefeuille de projets et soutenance exécutive devant la direction générale.</div>
+              <div class="cert-track-skills">
+                <span class="cert-skill-tag">Stratégie COMEX</span>
+                <span class="cert-skill-tag">Arbitrage Portfolio</span>
+                <span class="cert-skill-tag">Change Management</span>
+              </div>
+            </div>
+            <button class="cert-action-btn disabled" disabled>Verrouillé</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANE 2: MATRICE DES COMPÉTENCES -->
+      <div class="cert-pane" id="certPaneSkills" style="display:none">
+        <div class="cert-skills-grid">
+          <!-- Skill 1 -->
+          <div class="cert-skill-item">
+            <div class="cert-skill-header">
+              <span class="cert-skill-name">🧠 Prompt Engineering Avancé &amp; In-Context Learning</span>
+              <b class="cert-skill-val">96% · Expert</b>
+            </div>
+            <div class="cert-bar-track"><div class="cert-bar-fill" style="width:96%"></div></div>
+            <div class="cert-skill-meta">Standard F3 maîtrisé, zero-shot/few-shot, contraintes de formats strictes.</div>
+          </div>
+
+          <!-- Skill 2 -->
+          <div class="cert-skill-item">
+            <div class="cert-skill-header">
+              <span class="cert-skill-name">⚡ Méthodologie F3 (5s vision / 30s analyse / 2 clics action)</span>
+              <b class="cert-skill-val">98% · Master</b>
+            </div>
+            <div class="cert-bar-track"><div class="cert-bar-fill" style="width:98%;background:var(--orange)"></div></div>
+            <div class="cert-skill-meta">Restitution ultra-percutante et synthétique pour les comités de direction.</div>
+          </div>
+
+          <!-- Skill 3 -->
+          <div class="cert-skill-item">
+            <div class="cert-skill-header">
+              <span class="cert-skill-name">📊 BigQuery Analytics &amp; Modélisation Data</span>
+              <b class="cert-skill-val">91% · Avancé</b>
+            </div>
+            <div class="cert-bar-track"><div class="cert-bar-fill" style="width:91%"></div></div>
+            <div class="cert-skill-meta">Extraction et optimisation SQL des tables d'annonces et transactions.</div>
+          </div>
+
+          <!-- Skill 4 -->
+          <div class="cert-skill-item">
+            <div class="cert-skill-header">
+              <span class="cert-skill-name">💡 Modélisation Financière &amp; Calcul du ROI IA</span>
+              <b class="cert-skill-val">95% · Expert</b>
+            </div>
+            <div class="cert-bar-track"><div class="cert-bar-fill" style="width:95%"></div></div>
+            <div class="cert-skill-meta">Modélisation gains/coûts GPU, temps de payback et valeur nette produite.</div>
+          </div>
+
+          <!-- Skill 5 -->
+          <div class="cert-skill-item">
+            <div class="cert-skill-header">
+              <span class="cert-skill-name">🤖 Orchestration Multi-Agents &amp; Swarm Collaboratif</span>
+              <b class="cert-skill-val">92% · Avancé</b>
+            </div>
+            <div class="cert-bar-track"><div class="cert-bar-fill" style="width:92%"></div></div>
+            <div class="cert-skill-meta">Coordination d'agents spécialisés (Coder, Data, ROI, COMEX).</div>
+          </div>
+
+          <!-- Skill 6 -->
+          <div class="cert-skill-item">
+            <div class="cert-skill-header">
+              <span class="cert-skill-name">🛡️ Gouvernance, Sécurité DSA &amp; RGPD Souverain</span>
+              <b class="cert-skill-val">94% · Expert</b>
+            </div>
+            <div class="cert-bar-track"><div class="cert-bar-fill" style="width:94%"></div></div>
+            <div class="cert-skill-meta">Protection des données propriétaires leboncoin et conformité européenne.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANE 3: CERTIFICAT OFFICIEL NOMINATIF -->
+      <div class="cert-pane" id="certPaneDiploma" style="display:none">
+        <div class="cert-diploma-wrapper">
+          <div class="cert-diploma-card" id="certDiplomaCard">
+            <div class="cert-diploma-border">
+              <div class="diploma-header">
+                <div class="diploma-logo">leboncoin · Adevinta</div>
+                <div class="diploma-seal">ACCRÉDITÉ IA SOUVERAINE</div>
+              </div>
+              <div class="diploma-title">CERTIFICAT D'EXCELLENCE IA</div>
+              <div class="diploma-subtitle">Ce certificat officiel atteste des compétences de haut niveau délivrées à :</div>
+              <div class="diploma-name" id="diplomaHolderName">Abbas Mistrah</div>
+              <div class="diploma-role">Lead Consultant IA &amp; Transformation 360 · Standard F3</div>
+              <div class="diploma-desc">
+                Pour avoir validé avec succès les paliers d'expertise en <b>Prompt Engineering Avancé</b>, <b>Orchestration Multi-Agents</b>, <b>Modélisation ROI IA</b> et <b>Architecture Souveraine leboncoin</b>.
+              </div>
+              <div class="diploma-footer">
+                <div class="diploma-date">
+                  <div>DÉLIVRÉ LE :</div>
+                  <b id="diplomaDate">Août 2026</b>
+                </div>
+                <div class="diploma-sign">
+                  <div class="sign-line"></div>
+                  <div style="font-size:10px;color:var(--muted);font-weight:800">Direction Transfo IA 360 &amp; Innovation</div>
+                </div>
+                <div class="diploma-ref">
+                  <div>RÉFÉRENCE :</div>
+                  <b class="mono">LBC-AI-2026-9842X</b>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="diploma-actions">
+            <button class="cert-download-btn" onclick="downloadDiplomaCert()">📥 Télécharger le Certificat Officiel</button>
+            <button class="cert-share-btn" onclick="shareDiplomaCert()">🔗 Partager la Réussite</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANE 4: DÉFI & QUIZ DE VALIDATION -->
+      <div class="cert-pane" id="certPaneQuiz" style="display:none">
+        <div class="cert-quiz-box">
+          <div class="cert-quiz-header">
+            <div>
+              <div style="font-size:14px;font-weight:800;color:var(--ink)">⚡ Épreuve de Validation : Niveau 3 — Architect &amp; Data leboncoin</div>
+              <div style="font-size:12px;color:var(--muted)">Répondez à ces questions pour valider votre certification et passer au niveau Expert.</div>
+            </div>
+            <div class="quiz-xp-badge">+350 XP</div>
+          </div>
+
+          <div class="quiz-questions-list" id="certQuizQuestions">
+            <!-- Question 1 -->
+            <div class="quiz-card" id="qCard1">
+              <div class="quiz-q-num">Question 1/3</div>
+              <div class="quiz-q-text">Quel est le principe fondamental du standard F3 exigé pour les restitutions COMEX ?</div>
+              <div class="quiz-options">
+                <button class="quiz-opt" onclick="selectQuizAnswer(1, 0, false)">A) 5 minutes de lecture, 30 slides détaillées, 2 annexes</button>
+                <button class="quiz-opt" onclick="selectQuizAnswer(1, 1, true)">B) 5s de vision globale, 30s de compréhension, 2 clics pour passer à l'action</button>
+                <button class="quiz-opt" onclick="selectQuizAnswer(1, 2, false)">C) Format libre sans contrainte de temps</button>
+              </div>
+              <div class="quiz-feedback" id="qFeed1"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-card" id="qCard2">
+              <div class="quiz-q-num">Question 2/3</div>
+              <div class="quiz-q-text">Dans l'architecture souveraine de LeBon AI, quel modèle local garantit la confidentialité totale des données ?</div>
+              <div class="quiz-options">
+                <button class="quiz-opt" onclick="selectQuizAnswer(2, 0, true)">A) Ollama Qwen (4B / 0.6B) exécuté 100% sur le poste local</button>
+                <button class="quiz-opt" onclick="selectQuizAnswer(2, 1, false)">B) Un serveur public sans chiffrement</button>
+                <button class="quiz-opt" onclick="selectQuizAnswer(2, 2, false)">C) Une API externe non auditée</button>
+              </div>
+              <div class="quiz-feedback" id="qFeed2"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-card" id="qCard3">
+              <div class="quiz-q-num">Question 3/3</div>
+              <div class="quiz-q-text">Comment un Agent Autonome du Swarm résout-il une tâche complexe assignée dans le Kanban ?</div>
+              <div class="quiz-options">
+                <button class="quiz-opt" onclick="selectQuizAnswer(3, 0, false)">A) En envoyant un simple email d'attente</button>
+                <button class="quiz-opt" onclick="selectQuizAnswer(3, 1, true)">B) En générant le livrable complet (Code, SQL ou Note F3) et en notifiant le Feed d'équipe</button>
+                <button class="quiz-opt" onclick="selectQuizAnswer(3, 2, false)">C) En supprimant la tâche du backlog</button>
+              </div>
+              <div class="quiz-feedback" id="qFeed3"></div>
+            </div>
+          </div>
+
+          <div class="quiz-footer-actions">
+            <button class="quiz-submit-btn" id="quizSubmitBtn" onclick="evaluateQuizCompletion()">✓ Valider l'Épreuve &amp; Obtenir les Points</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- MODAL: SECOND BRAIN (CERVEAU NUMÉRIQUE, GRAPHE NEURONAL & P.A.R.A)       -->
+<!-- ========================================================================= -->
+<div class="modal-backdrop" id="secondBrainModal" style="display:none" onclick="if(event.target===this) closeSecondBrainModal()">
+  <div class="agent-modal-dialog second-brain-dialog" onclick="event.stopPropagation()">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="agent-modal-icon" style="background:#f5f3ff;border:1px solid #ddd6fe;color:#7c3aed">🧠</span>
+        <div>
+          <h3 id="sbModalTitle">Second Brain · Cerveau Numérique &amp; Graphe de Connaissances</h3>
+          <p id="sbModalSubtitle">Capture rapide de pensées, méthode P.A.R.A, graphe neuronal interactif et Q&amp;A sémantique</p>
+        </div>
+      </div>
+      <div class="sb-header-kpis">
+        <span class="sb-kpi-chip" id="sbKpiNotes">8 Notes</span>
+        <span class="sb-kpi-chip" id="sbKpiLinks">14 Connexions</span>
+      </div>
+      <button class="agent-modal-close" onclick="closeSecondBrainModal()">×</button>
+    </div>
+
+    <!-- TABS -->
+    <div class="modal-tabs-strip">
+      <button class="modal-tab-btn active" id="sbTabGraph" onclick="switchSecondBrainTab('graph')">🕸️ Graphe Neuronal</button>
+      <button class="modal-tab-btn" id="sbTabNotes" onclick="switchSecondBrainTab('notes')">📥 Notes &amp; P.A.R.A</button>
+      <button class="modal-tab-btn" id="sbTabQuery" onclick="switchSecondBrainTab('query')">🔍 Interroger Mon Cerveau</button>
+      <button class="modal-tab-btn" id="sbTabInsights" onclick="switchSecondBrainTab('insights')">⚡ Connexions &amp; Insights IA</button>
+    </div>
+
+    <div class="agent-modal-body sb-modal-body">
+      <!-- PANE 1: GRAPHE NEURONAL INTERACTIF -->
+      <div class="sb-pane active" id="sbPaneGraph">
+        <div class="sb-graph-toolbar">
+          <div class="sb-graph-filters">
+            <button class="sb-filter-chip active" onclick="filterSecondBrainGraph('all')">Tous les Nœuds</button>
+            <button class="sb-filter-chip" onclick="filterSecondBrainGraph('projects')">📁 Projects</button>
+            <button class="sb-filter-chip" onclick="filterSecondBrainGraph('areas')">🎯 Areas</button>
+            <button class="sb-filter-chip" onclick="filterSecondBrainGraph('resources')">📖 Resources</button>
+          </div>
+          <button class="sb-action-btn primary" onclick="switchSecondBrainTab('notes'); openNewNoteForm()">+ Nouvelle Pensée / Note</button>
+        </div>
+
+        <div class="sb-canvas-container">
+          <canvas id="sbGraphCanvas" width="860" height="420"></canvas>
+          <div class="sb-graph-legend">
+            <span class="sb-leg-dot" style="background:#ff6b00"></span> Projects
+            <span class="sb-leg-dot" style="background:#3b82f6"></span> Areas
+            <span class="sb-leg-dot" style="background:#f59e0b"></span> Resources
+            <span class="sb-leg-dot" style="background:#10b981"></span> Local Tech
+          </div>
+        </div>
+      </div>
+
+      <!-- PANE 2: NOTES & CAPTURE P.A.R.A -->
+      <div class="sb-pane" id="sbPaneNotes" style="display:none">
+        <div class="sb-notes-layout">
+          <!-- Formulaire de Capture -->
+          <div class="sb-note-capture-card">
+            <div style="font-weight:800;font-size:12.5px;margin-bottom:8px;color:var(--ink)">⚡ Capture Éclair d'une Note ou Pensée</div>
+            <input type="text" id="sbNoteTitleInput" class="sb-input" placeholder="Titre de la note ou du concept..." />
+            <div class="sb-note-meta-row">
+              <select id="sbNoteCategoryInput" class="sb-select">
+                <option value="projects">📁 Projects (Chantiers en cours)</option>
+                <option value="areas" selected>🎯 Areas (Responsabilités &amp; Pôles)</option>
+                <option value="resources">📖 Resources (Prompts, Guides, Docs)</option>
+                <option value="archives">🗄️ Archives (Validé / Passé)</option>
+              </select>
+              <input type="text" id="sbNoteTagsInput" class="sb-input" placeholder="Tags séparés par virgules (ex: F3, BigQuery, COMEX)..." />
+            </div>
+            <textarea id="sbNoteContentInput" class="sb-textarea" placeholder="Notez votre réflexion, prompt template, règle d'or ou extrait de doc..."></textarea>
+            <div style="display:flex;justify-content:flex-end;margin-top:8px">
+              <button class="sb-save-btn" onclick="saveNewSecondBrainNote()">✓ Enregistrer dans le Second Brain</button>
+            </div>
+          </div>
+
+          <!-- Liste des Notes -->
+          <div class="sb-notes-list-header">
+            <div style="font-weight:800;font-size:13px;color:var(--ink)">📚 Connaissances Mémorisées</div>
+            <div style="font-size:11.5px;color:var(--muted)" id="sbNotesCountLabel">4 notes actives</div>
+          </div>
+          <div class="sb-notes-grid" id="sbNotesGrid">
+            <!-- Rendu dynamique JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- PANE 3: Q&A ET RECHERCHE SÉMANTIQUE -->
+      <div class="sb-pane" id="sbPaneQuery" style="display:none">
+        <div class="sb-query-container">
+          <div class="sb-query-input-box">
+            <input type="text" id="sbQueryInput" class="sb-query-input" placeholder="Posez n'importe quelle question à votre Second Brain (ex: 'Que dit notre règle sur le ROI GPU ?')..." onkeydown="if(event.key==='Enter') executeSecondBrainQuery()" />
+            <button class="sb-query-submit-btn" onclick="executeSecondBrainQuery()">⚡ Interroger</button>
+          </div>
+
+          <div class="sb-query-result" id="sbQueryResult">
+            <div class="sb-query-placeholder">
+              <div style="font-size:32px;margin-bottom:8px">🧠</div>
+              <div style="font-weight:700">Interrogez votre base de connaissances personnelle</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:4px">L'IA synthétisera instantanément les concepts et notes reliés dans votre cerveau numérique.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANE 4: INSIGHTS ET CONNEXIONS IA -->
+      <div class="sb-pane" id="sbPaneInsights" style="display:none">
+        <div class="sb-insights-list">
+          <div class="sb-insight-card">
+            <div class="sb-insight-badge">💡 Connexion Détectée par l'IA</div>
+            <div class="sb-insight-title">Synergie : Règle F3 ⟷ Modélisation ROI Financier</div>
+            <div class="sb-insight-desc">Vos notes recommandent d'intégrer le calcul du ROI net (182 500 € annuels) dès les 5 premières secondes des présentations COMEX selon le standard F3.</div>
+            <button class="sb-insight-btn" onclick="quickPrompt('Rédige une diapositive COMEX F3 combinant le ROI net et le temps de payback de 1.8 mois.')">⚡ Générer le livrable combiné</button>
+          </div>
+
+          <div class="sb-insight-card">
+            <div class="sb-insight-badge">🛡️ Alerte Conformité &amp; Architecture</div>
+            <div class="sb-insight-title">Souveraineté : Données Transactions leboncoin</div>
+            <div class="sb-insight-desc">Le concept <b>BigQuery Analytics</b> est lié aux données sensibles de transactions. Maintenir l'exécution via Ollama Qwen local pour les requêtes contenant des identifiants clients.</div>
+            <button class="sb-insight-btn" onclick="quickPrompt('Vérifie que la requête SQL BigQuery ne contient aucune donnée personnelle en clair (conformité DSA/RGPD).')">⚡ Auditer la requête SQL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- MODAL: PLANIFICATION (PLAN D'ACTION — KANBAN + GÉNÉRATION IA)             -->
+<!-- ========================================================================= -->
+<div class="agent-modal" id="planModal" style="display:none">
+  <div class="agent-modal-backdrop" onclick="closePlanModal()"></div>
+  <div class="agent-modal-dialog plan-dialog">
+    <div class="agent-modal-header">
+      <div class="agent-modal-title">
+        <span class="agent-modal-icon" style="background:var(--orange-soft);border:1px solid var(--orange-ring);color:var(--orange-deep)">🗂️</span>
+        <div>
+          <h3>Planification · Plan d'action</h3>
+          <p>Découpe tes projets en étapes, assigne un responsable, suis l'avancement — 100 % local</p>
+        </div>
+      </div>
+      <div class="plan-progress-wrap">
+        <div class="plan-progress-track"><div class="plan-progress-fill" id="planProgressFill"></div></div>
+        <span class="plan-progress-label" id="planProgressLabel">0% · 0/0</span>
+      </div>
+      <button class="agent-modal-close" onclick="closePlanModal()">×</button>
+    </div>
+
+    <div class="plan-toolbar">
+      <div class="plan-obj-row">
+        <input type="text" id="planObjectiveInput" class="plan-input plan-obj-input" placeholder="Objectif du plan (ex : Déployer l'assistant IA au pôle Modération)…" onkeydown="if(event.key==='Enter') planGenerateAI()">
+        <button class="plan-ai-btn" id="planAiBtn" onclick="planGenerateAI()">✨ Générer le plan avec l'IA</button>
+      </div>
+      <div class="plan-add-row">
+        <input type="text" id="planNewTitle" class="plan-input" placeholder="Nouvelle tâche…" onkeydown="if(event.key==='Enter') planAddManual()">
+        <input type="text" id="planNewOwner" class="plan-input plan-input-sm" placeholder="Responsable">
+        <input type="date" id="planNewDue" class="plan-input plan-input-sm" title="Échéance">
+        <select id="planNewPriority" class="plan-input plan-input-sm">
+          <option value="low">Priorité basse</option>
+          <option value="normal" selected>Priorité normale</option>
+          <option value="high">Priorité haute</option>
+        </select>
+        <button class="plan-add-btn" onclick="planAddManual()">+ Ajouter</button>
+        <button class="plan-clear-btn" onclick="planClearAll()">Tout effacer</button>
+      </div>
+    </div>
+
+    <div class="plan-board">
+      <div class="plan-col">
+        <div class="plan-col-head"><span class="plan-col-title">📋 À faire</span><span class="plan-col-count" id="planCountTodo">0</span></div>
+        <div class="plan-col-body" id="planColTodo"></div>
+      </div>
+      <div class="plan-col">
+        <div class="plan-col-head"><span class="plan-col-title">⚙️ En cours</span><span class="plan-col-count" id="planCountDoing">0</span></div>
+        <div class="plan-col-body" id="planColDoing"></div>
+      </div>
+      <div class="plan-col">
+        <div class="plan-col-head"><span class="plan-col-title">✅ Terminé</span><span class="plan-col-count" id="planCountDone">0</span></div>
+        <div class="plan-col-body" id="planColDone"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="/app.js?v=31"></script>
+
+</body>
+</html>

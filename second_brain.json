@@ -1,0 +1,203 @@
+{
+  "stats": {
+    "totalNotes": 8,
+    "totalConnections": 14,
+    "syncedConcepts": 24,
+    "paraSplit": {
+      "projects": 3,
+      "areas": 2,
+      "resources": 2,
+      "archives": 1
+    }
+  },
+  "nodes": [
+    {
+      "id": "n-1",
+      "label": "Transfo IA 360",
+      "category": "projects",
+      "group": 1,
+      "size": 30,
+      "color": "#ff6b00",
+      "x": 260,
+      "y": 160,
+      "notesCount": 4
+    },
+    {
+      "id": "n-2",
+      "label": "Standard F3",
+      "category": "resources",
+      "group": 2,
+      "size": 24,
+      "color": "#f59e0b",
+      "x": 420,
+      "y": 120,
+      "notesCount": 3
+    },
+    {
+      "id": "n-3",
+      "label": "Ollama Qwen Local",
+      "category": "resources",
+      "group": 2,
+      "size": 22,
+      "color": "#10b981",
+      "x": 150,
+      "y": 280,
+      "notesCount": 3
+    },
+    {
+      "id": "n-4",
+      "label": "BigQuery Analytics",
+      "category": "areas",
+      "group": 3,
+      "size": 26,
+      "color": "#3b82f6",
+      "x": 380,
+      "y": 280,
+      "notesCount": 5
+    },
+    {
+      "id": "n-5",
+      "label": "Multi-Agents Swarm",
+      "category": "projects",
+      "group": 1,
+      "size": 24,
+      "color": "#8b5cf6",
+      "x": 540,
+      "y": 210,
+      "notesCount": 4
+    },
+    {
+      "id": "n-6",
+      "label": "Gouvernance DSA/RGPD",
+      "category": "areas",
+      "group": 3,
+      "size": 20,
+      "color": "#ec4899",
+      "x": 270,
+      "y": 390,
+      "notesCount": 2
+    },
+    {
+      "id": "n-7",
+      "label": "ROI Financier & Payback",
+      "category": "areas",
+      "group": 3,
+      "size": 24,
+      "color": "#22c55e",
+      "x": 480,
+      "y": 370,
+      "notesCount": 4
+    },
+    {
+      "id": "n-8",
+      "label": "Adevinta Tech Hub",
+      "category": "resources",
+      "group": 2,
+      "size": 20,
+      "color": "#002F6C",
+      "x": 610,
+      "y": 110,
+      "notesCount": 2
+    }
+  ],
+  "links": [
+    {
+      "source": "n-1",
+      "target": "n-2",
+      "strength": 0.9
+    },
+    {
+      "source": "n-1",
+      "target": "n-3",
+      "strength": 0.8
+    },
+    {
+      "source": "n-1",
+      "target": "n-5",
+      "strength": 0.95
+    },
+    {
+      "source": "n-1",
+      "target": "n-7",
+      "strength": 0.85
+    },
+    {
+      "source": "n-4",
+      "target": "n-7",
+      "strength": 0.9
+    },
+    {
+      "source": "n-4",
+      "target": "n-1",
+      "strength": 0.75
+    },
+    {
+      "source": "n-5",
+      "target": "n-2",
+      "strength": 0.8
+    },
+    {
+      "source": "n-6",
+      "target": "n-3",
+      "strength": 0.85
+    },
+    {
+      "source": "n-1",
+      "target": "n-8",
+      "strength": 0.7
+    },
+    {
+      "source": "n-5",
+      "target": "n-8",
+      "strength": 0.65
+    }
+  ],
+  "notes": [
+    {
+      "id": "sb-101",
+      "title": "Règle d'Or F3 pour COMEX & Direction",
+      "category": "resources",
+      "tags": [
+        "Standard F3",
+        "COMEX",
+        "Transfo IA 360"
+      ],
+      "updatedAt": "2026-08-20",
+      "content": "Toute restitution IA doit respecter le triptyque : 5 secondes pour capter l'impact business (KPI net), 30 secondes pour comprendre la mécanique, et 2 clics pour décider ou lancer le prototype."
+    },
+    {
+      "id": "sb-102",
+      "title": "Architecture Souveraine & Données Locales",
+      "category": "areas",
+      "tags": [
+        "Ollama Qwen Local",
+        "Gouvernance DSA & RGPD"
+      ],
+      "updatedAt": "2026-08-19",
+      "content": "Privilégier le traitement local avec Qwen 4B / 0.6B pour les requêtes à forte sensibilité métier (données d'annonces non publiques, métriques internes IBC). Fallback Cloud uniquement avec anonymisation stricte."
+    },
+    {
+      "id": "sb-103",
+      "title": "Formule de Rentabilité Nette & Amortissement GPU",
+      "category": "areas",
+      "tags": [
+        "ROI Financier & Payback",
+        "BigQuery Analytics"
+      ],
+      "updatedAt": "2026-08-18",
+      "content": "Formule standard : Gain Net Annuel = (Heures économisées × Taux horaire chargé 65€) - (Coût GPU/Tokens inférence + Coût hébergement). Payback cible inférieur à 1,5 mois."
+    },
+    {
+      "id": "sb-104",
+      "title": "Pattern Swarm Multi-Agents pour Kanban",
+      "category": "projects",
+      "tags": [
+        "Multi-Agents Swarm",
+        "Standard F3",
+        "Transfo IA 360"
+      ],
+      "updatedAt": "2026-08-17",
+      "content": "Délégation tripartite : Agent Coder pour le script technique, Agent Data Analyst pour la validation SQL, et Agent Synthesizer pour le mémo exécutif."
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "ibc": {
+    "score": 59.2,
+    "components": {
+      "adoption": 78.7,
+      "delivery": 46.8,
+      "roi": null,
+      "scale": 13.9,
+      "qualite": 100
+    },
+    "weights": {
+      "adoption": 0.30,
+      "delivery": 0.25,
+      "roi": 0.20,
+      "scale": 0.15,
+      "qualite": 0.10
+    },
+    "missing_components": ["roi"],
+    "note": "IBC partiel — composants manquants : roi. Poids rescalés."
+  },
+  "kpis": {
+    "kpi_use_cases_total":      {"id":"kpi_use_cases_total","name":"Use cases recensés","value":370,"unit":"—","confidence":"High","source":"SRC_MASTERLIST"},
+    "kpi_use_cases_live":       {"id":"kpi_use_cases_live","name":"Use cases live","value":173,"unit":"—","confidence":"High","source":"SRC_MASTERLIST"},
+    "kpi_use_cases_inprogress": {"id":"kpi_use_cases_inprogress","name":"Use cases en cours","value":74,"unit":"—","confidence":"High","source":"SRC_MASTERLIST"},
+    "kpi_use_cases_notstarted": {"id":"kpi_use_cases_notstarted","name":"Use cases non commencés","value":123,"unit":"—","confidence":"High","source":"SRC_MASTERLIST"},
+    "kpi_delivery_pct":         {"id":"kpi_delivery_pct","name":"% delivery","value":46.76,"unit":"%","confidence":"High","source":"SRC_MASTERLIST"},
+    "kpi_chatgpt_active":       {"id":"kpi_chatgpt_active","name":"ChatGPT actifs (Mars 26)","value":948,"unit":"users","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_chatgpt_adoption_pct": {"id":"kpi_chatgpt_adoption_pct","name":"ChatGPT adoption rate","value":78.7,"unit":"%","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_chatgpt_messages":     {"id":"kpi_chatgpt_messages","name":"Messages ChatGPT total","value":788103,"unit":"msg","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_chatgpt_users_total":  {"id":"kpi_chatgpt_users_total","name":"ChatGPT users (S16)","value":1086,"unit":"users","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_chatgpt_users_s17":    {"id":"kpi_chatgpt_users_s17","name":"ChatGPT users (S17)","value":1005,"unit":"users","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_gpt_created":          {"id":"kpi_gpt_created","name":"GPT créés (S16)","value":1852,"unit":"—","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_gpt_active":           {"id":"kpi_gpt_active","name":"GPT actifs (S16)","value":258,"unit":"—","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_projects_total":       {"id":"kpi_projects_total","name":"Projects total","value":1629,"unit":"—","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_projects_active":      {"id":"kpi_projects_active","name":"Projects actifs (S16)","value":363,"unit":"—","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_n8n_workflows":        {"id":"kpi_n8n_workflows","name":"n8n workflows en création","value":259,"unit":"—","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_gemini_active":        {"id":"kpi_gemini_active","name":"Gemini actifs (Mars 26)","value":867,"unit":"users","confidence":"High","source":"SRC_TASKFORCE_8"},
+    "kpi_gemini_adoption_pct":  {"id":"kpi_gemini_adoption_pct","name":"Gemini adoption rate","value":64.8,"unit":"%","confidence":"High","source":"SRC_TASKFORCE_8"}
+  },
+  "departments": [
+    {"id":"dept_relations_clients","name":"Relations clients","progress_pct":67.65,"total":34,"live":23,"in_progress":5,"not_started":6,"trend":"Vert","band":"Leader","owner":"À renseigner","next_step":"Industrialiser self-service.","blocker":"Industrialiser les insights tickets."},
+    {"id":"dept_transverse","name":"Transverse","progress_pct":66.67,"total":18,"live":12,"in_progress":1,"not_started":5,"trend":"Vert","band":"Leader","owner":"À renseigner","next_step":"Identifier les use cases transverses à fort levier.","blocker":"Décider lesquels essaimer en priorité."},
+    {"id":"dept_automobile","name":"Automobile","progress_pct":61.70,"total":47,"live":29,"in_progress":9,"not_started":9,"trend":"Vert","band":"Leader","owner":"À renseigner","next_step":"Identifier 3 cas à fort impact.","blocker":"Priorisation cas data."},
+    {"id":"dept_juridique","name":"Juridique","progress_pct":50.00,"total":10,"live":5,"in_progress":4,"not_started":1,"trend":"Vert","band":"Leader","owner":"À renseigner","next_step":"Transformer Maître Coin en preuve ROI.","blocker":"Capitaliser & documenter."},
+    {"id":"dept_tech","name":"Tech","progress_pct":47.27,"total":55,"live":26,"in_progress":7,"not_started":22,"trend":"Orange","band":"Structuration","owner":"À renseigner","next_step":"Standardiser le Golden Path.","blocker":"DX/infra/ownership."},
+    {"id":"dept_immobilier","name":"Immobilier","progress_pct":45.71,"total":70,"live":32,"in_progress":7,"not_started":31,"trend":"Orange","band":"Structuration","owner":"À renseigner","next_step":"Mesurer ROI commercial.","blocker":"Industrialiser les succès commerciaux."},
+    {"id":"dept_produit","name":"Produit","progress_pct":44.00,"total":50,"live":22,"in_progress":12,"not_started":16,"trend":"Orange","band":"Structuration","owner":"À renseigner","next_step":"Installer rituel PM x IA.","blocker":"Adoption rituels à structurer."},
+    {"id":"dept_publicite","name":"Publicité","progress_pct":41.18,"total":17,"live":7,"in_progress":8,"not_started":2,"trend":"Orange","band":"Structuration","owner":"À renseigner","next_step":"Choisir 3 cas concrets visibles.","blocker":"Conversion en cas live."},
+    {"id":"dept_marketing_com","name":"Marketing / Com","progress_pct":35.71,"total":14,"live":5,"in_progress":1,"not_started":8,"trend":"Orange","band":"Structuration","owner":"À renseigner","next_step":"Packager les prompts utiles.","blocker":"Priorisation cas à valeur."},
+    {"id":"dept_rh","name":"RH","progress_pct":33.33,"total":12,"live":4,"in_progress":6,"not_started":2,"trend":"Orange","band":"Structuration","owner":"À renseigner","next_step":"Outiller les cas RH récurrents.","blocker":"Relancer formation et usage régulier."},
+    {"id":"dept_ddo","name":"DDO / Sales Ops","progress_pct":22.73,"total":22,"live":5,"in_progress":5,"not_started":12,"trend":"Rouge","band":"À alerter","owner":"À renseigner","next_step":"Plan quick wins avec owners.","blocker":"Données et ownership."},
+    {"id":"dept_finance","name":"Finance","progress_pct":18.75,"total":16,"live":3,"in_progress":6,"not_started":7,"trend":"Rouge","band":"Critique","owner":"À renseigner","next_step":"Identifier 3 cas IA Finance/Legal.","blocker":"Bottleneck validation."},
+    {"id":"dept_pro_bdc","name":"Pro BDC","progress_pct":0.00,"total":5,"live":0,"in_progress":3,"not_started":2,"trend":"Rouge","band":"À alerter","owner":"À renseigner","next_step":"Cadrer le périmètre IA Pro BDC.","blocker":"Démarrage du portefeuille."}
+  ],
+  "tool_usage": [],
+  "actions": [],
+  "blockers": [],
+  "metadata": {
+    "generated_at": "2026-05-15T14:00:00Z",
+    "source": "snapshot v1 (hand-built from testGetAll + Taskforce #8 ratios)",
+    "hub_name": "BOUSSOLE_DATA_HUB",
+    "note": "Snapshot statique servi par le serveur PowerShell local. À régénérer après chaque ingestion."
+  }
+}
