@@ -1,13 +1,13 @@
-# LeBon AI
+# Local AI
 
 ### Local-first Agentic Workspace
 
 **From intent to governed execution.**
 
-LeBon AI turns complex knowledge work into traceable outcomes. Conversations become editable deliverables, business needs become scored use cases, specialist agents become visible executions, and reusable knowledge stays available for the next decision.
+Local AI turns complex knowledge work into traceable outcomes. Conversations become editable deliverables, business needs become scored use cases, specialist agents become visible executions, and reusable knowledge stays available for the next decision.
 
 <p align="center">
-  <img src="docs/hero.png" alt="LeBon AI local-first agentic workspace" width="100%" />
+  <img src="docs/hero.png" alt="Local AI local-first agentic workspace" width="100%" />
 </p>
 
 <p align="center">
@@ -18,24 +18,24 @@ LeBon AI turns complex knowledge work into traceable outcomes. Conversations bec
 
 ## The execution layer for AI transformation
 
-AI transformation often breaks between the strategy deck and everyday work. LeBon AI closes that gap with one workspace where teams can frame a need, mobilise the right agent, orchestrate a workflow, validate the output, plan the rollout and preserve what was learned.
+AI transformation often breaks between the strategy deck and everyday work. Local AI closes that gap with one workspace where teams can frame a need, mobilise the right agent, orchestrate a workflow, validate the output, plan the rollout and preserve what was learned.
 
 It complements [Boussole](https://github.com/abbas-mistrah/boussole):
 
 ```mermaid
 flowchart LR
-    A["Boussole<br/>Prioritise · Govern · Measure"] --> B["LeBon AI<br/>Execute · Orchestrate · Learn"]
+    A["Boussole<br/>Prioritise · Govern · Measure"] --> B["Local AI<br/>Execute · Orchestrate · Learn"]
     B --> C["Business outcomes<br/>Deliverables · Adoption · Evidence"]
     C -. "feedback loop" .-> A
 ```
 
-> **Boussole decides where transformation should go. LeBon AI helps teams make it happen.**
+> **Boussole decides where transformation should go. Local AI helps teams make it happen.**
 
 ---
 
 ## One workspace, six connected capabilities
 
-| Capability | What happens inside LeBon AI | Operational result |
+| Capability | What happens inside Local AI | Operational result |
 |---|---|---|
 | **Conversation → deliverable** | Reason over sources, use tools and continue in an editable canvas | Work ends in a usable brief, not a disposable answer |
 | **Agents Studio** | Configure specialist roles, models, sources, tools and output rules | Recurrent expert work becomes repeatable and inspectable |
@@ -50,10 +50,10 @@ flowchart LR
 
 ### 1. Start from the outcome
 
-Choose the job to be done—analyse, create, code, frame or measure—then let LeBon AI assemble the right working surface.
+Choose the job to be done—analyse, create, code, frame or measure—then let Local AI assemble the right working surface.
 
 <p align="center">
-  <img src="docs/hero.png" alt="LeBon AI home with outcome-oriented entry points" width="100%" />
+  <img src="docs/hero.png" alt="Local AI original home with outcome-oriented entry points" width="100%" />
 </p>
 
 ### 2. Turn a conversation into an executive deliverable
@@ -61,7 +61,7 @@ Choose the job to be done—analyse, create, code, frame or measure—then let L
 Chat, source grounding and an editable canvas live side by side, so the path from request to decision-ready output stays short and legible.
 
 <p align="center">
-  <img src="docs/chat.png" alt="LeBon AI conversation and editable executive brief" width="100%" />
+  <img src="docs/chat.png" alt="Local AI conversation and editable executive brief" width="100%" />
 </p>
 
 ### 3. Mobilise specialist agents
@@ -69,7 +69,7 @@ Chat, source grounding and an editable canvas live side by side, so the path fro
 Create focused agents for research, analytics, compliance, content, use-case framing or engineering. The execution trace exposes the steps, controls and resulting artifact.
 
 <p align="center">
-  <img src="docs/agents-studio.png" alt="LeBon AI Agents Studio and execution trace" width="100%" />
+  <img src="docs/agents-studio.png" alt="Local AI Agents Studio and execution trace" width="100%" />
 </p>
 
 ### 4. Orchestrate work visually
@@ -77,7 +77,7 @@ Create focused agents for research, analytics, compliance, content, use-case fra
 Compose a pipeline from trigger to classification, enrichment, evaluation and human validation. Runtime signals make progress and exceptions immediately understandable.
 
 <p align="center">
-  <img src="docs/workflows.png" alt="LeBon AI visual workflow orchestration" width="100%" />
+  <img src="docs/workflows.png" alt="Local AI visual workflow orchestration" width="100%" />
 </p>
 
 ### 5. Turn an idea into an explicit decision
@@ -85,7 +85,7 @@ Compose a pipeline from trigger to classification, enrichment, evaluation and hu
 Use Case Studio frames the business problem, target users, expected result, data, owner and success measures, then exposes an explainable readiness score.
 
 <p align="center">
-  <img src="docs/use-case.png" alt="LeBon AI use-case framing and assisted evaluation" width="100%" />
+  <img src="docs/use-case.png" alt="Local AI use-case framing and assisted evaluation" width="100%" />
 </p>
 
 ### 6. Convert the decision into an owned plan
@@ -93,7 +93,7 @@ Use Case Studio frames the business problem, target users, expected result, data
 Break an objective into prioritised work, assign responsibility and keep deadlines and progress visible from pilot to completion.
 
 <p align="center">
-  <img src="docs/planification.png" alt="LeBon AI transformation planning board" width="100%" />
+  <img src="docs/planification.png" alt="Local AI transformation planning board" width="100%" />
 </p>
 
 ### 7. Build organisational memory
@@ -101,7 +101,7 @@ Break an objective into prioritised work, assign responsibility and keep deadlin
 Search and reuse validated documents, prompts, templates, workflows and code assets across future conversations and executions.
 
 <p align="center">
-  <img src="docs/bibliotheque.png" alt="LeBon AI reusable knowledge library" width="100%" />
+  <img src="docs/bibliotheque.png" alt="Local AI reusable knowledge library" width="100%" />
 </p>
 
 ---
@@ -177,7 +177,7 @@ node --test tests/test-server.js
 
 ## Showcase note
 
-The screenshots in this repository are product demonstrations created with fictional, anonymised data. They illustrate the LeBon AI experience without exposing production or company information.
+The screenshots in this repository are product demonstrations created with fictional, anonymised data. They illustrate the Local AI experience without exposing production or company information.
 
 ---
 
