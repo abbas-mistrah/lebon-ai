@@ -7,7 +7,7 @@
 Local AI turns complex knowledge work into traceable outcomes. Conversations become editable deliverables, business needs become scored use cases, specialist agents become visible executions, and reusable knowledge stays available for the next decision.
 
 <p align="center">
-  <img src="docs/hero.png" alt="Local AI local-first agentic workspace" width="100%" />
+  <img src="docs/home-local-ai.png" alt="Local AI local-first agentic workspace" width="100%" />
 </p>
 
 <p align="center">
@@ -53,7 +53,7 @@ flowchart LR
 Choose the job to be done—analyse, create, code, frame or measure—then let Local AI assemble the right working surface.
 
 <p align="center">
-  <img src="docs/hero.png" alt="Local AI original home with outcome-oriented entry points" width="100%" />
+  <img src="docs/home-local-ai.png" alt="Local AI original home with outcome-oriented entry points" width="100%" />
 </p>
 
 ### 2. Turn a conversation into an executive deliverable
